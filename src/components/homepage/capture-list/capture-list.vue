@@ -4,7 +4,11 @@
       今日警情（113）
     </header>
     <div class="list">
-      <div class="item">
+      <div
+        v-for="item in 10"
+        :key="item"
+        class="item"
+      >
         <div>
           <el-image
             class="img"
@@ -13,33 +17,7 @@
           />
         </div>
         <p class="info">
-          <span>李庆昆（240016）</span>
-          <span>2021-10-22  08:30:50</span>
-        </p>
-      </div>
-      <div class="item">
-        <div>
-          <el-image
-            class="img"
-            :src="demoImg"
-            fit="contain"
-          />
-        </div>
-        <p class="info">
-          <span>李庆昆（240016）</span>
-          <span>2021-10-22  08:30:50</span>
-        </p>
-      </div>
-      <div class="item">
-        <div>
-          <el-image
-            class="img"
-            :src="demoImg"
-            fit="contain"
-          />
-        </div>
-        <p class="info">
-          <span>李庆昆（240016）</span>
+          <span class="important">李庆昆（240016）</span>
           <span>2021-10-22  08:30:50</span>
         </p>
       </div>

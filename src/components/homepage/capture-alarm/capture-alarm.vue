@@ -3,11 +3,14 @@
     <div class="capture-alarm-wrapper">
       <div class="capture-alarm-header">
         <div class="tab-wrapper">
-          <div class="tab-item active">
-            <span class="tab-item-text">今日告警（45）</span>
-          </div>
-          <div class="tab-item">
-            <span class="tab-item-text">今日识别（2358）</span>
+          <div
+            v-for="(item, index) in tabList"
+            :key="index"
+            class="tab-item "
+            :class="{ active: index === current }"
+            @click="current = index"
+          >
+            <span class="tab-item-text">{{ item.label }}（{{ item.count || 0 }}）</span>
           </div>
         </div>
         <div class="btn-wrapper">
@@ -22,8 +25,8 @@
         </div>
       </div>
       <div class="capture-alarm-body">
-        <capture-alarm-today-alarm v-show="captureAlarmTodayAlarmVisible" />
-        <capture-alarm-today-recognize v-show="captureAlarmTodayRecognizeVisible" />
+        <capture-alarm-today-alarm v-show="current === 0" />
+        <capture-alarm-today-recognize v-show="current === 1" />
       </div>
     </div>
   </homepage-box>
@@ -38,8 +41,7 @@ export default {
   components: {CaptureAlarmTodayRecognize, CaptureAlarmTodayAlarm, HomepageBox},
   data() {
     return {
-      captureAlarmTodayAlarmVisible: true,
-      captureAlarmTodayRecognizeVisible: false,
+      current: 0,
       tabList: [
         {
           label: '今日告警',

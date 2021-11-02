@@ -12,6 +12,8 @@
     border-top: unset;
     height: 100%;
     .el-collapse-item{
+      height: 48px;
+      overflow: hidden;
       margin-bottom: 8px;
     }
     .el-collapse-item.is-active{
@@ -111,54 +113,6 @@
     .face-alarm-list {
       height: 100%;
       overflow: auto;
-      .face-alarm-item {
-        .dashBottomBorder;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        height: 150px;
-        &.first{
-          .photo{
-            border: 2px solid @firstColor;
-          }
-        }
-        &.second{
-          .photo{
-            border: 2px solid @secondColor;
-          }
-        }
-        &.third{
-          .photo{
-            border: 2px solid @thirdColor;
-          }
-        }
-        .photo {
-          width: 105px;
-          height: 105px;
-          box-sizing: border-box;
-          margin-left: 20px;
-          border-radius: 5px;
-          .img {
-            width: 100%;
-            height: 100%;
-          }
-        }
-        .info-wrapper{
-          flex: auto;
-          margin-left: 10px;
-          line-height: 2;
-          .row-first{
-            display: flex;
-            .name{
-              margin-right: 5px;
-              color: #37fff8;
-            }
-          }
-          .similarity{
-            color: #ff9d46
-          }
-        }
-      }
     }
     .device-warn-list{
       height: 100%;

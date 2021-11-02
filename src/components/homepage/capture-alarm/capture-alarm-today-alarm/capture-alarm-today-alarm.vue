@@ -29,141 +29,10 @@
           </div>
         </template>
         <div class="face-alarm-list">
-          <div class="face-alarm-item">
-            <div class="photo">
-              <el-image
-                class="img"
-                :src="demoImg"
-              />
-            </div>
-            <div class="info-wrapper">
-              <p class="row-first">
-                <span class="name">汪屽永</span>
-                <person-flag
-                  class="flag"
-                  :data="flag"
-                  :limit="1"
-                />
-              </p>
-              <p class="similarity">
-                相似度：90.95%
-              </p>
-              <p class="similarity">
-                <id-card :data="idCard" />
-              </p>
-              <p>
-                时间：2021-10-19    18:40:43
-              </p>
-            </div>
-          </div>
-          <div class="face-alarm-item">
-            <div class="photo">
-              <el-image
-                class="img"
-                :src="demoImg"
-              />
-            </div>
-            <div class="info-wrapper">
-              <p class="row-first">
-                <span class="name">汪屽永</span>
-                <person-flag
-                  class="flag"
-                  :data="flag"
-                  :limit="1"
-                />
-              </p>
-              <p class="similarity">
-                相似度：90.95%
-              </p>
-              <p class="similarity">
-                <id-card :data="idCard" />
-              </p>
-              <p>
-                时间：2021-10-19    18:40:43
-              </p>
-            </div>
-          </div>
-          <div class="face-alarm-item">
-            <div class="photo">
-              <el-image
-                class="img"
-                :src="demoImg"
-              />
-            </div>
-            <div class="info-wrapper">
-              <p class="row-first">
-                <span class="name">汪屽永</span>
-                <person-flag
-                  class="flag"
-                  :data="flag"
-                  :limit="1"
-                />
-              </p>
-              <p class="similarity">
-                相似度：90.95%
-              </p>
-              <p class="similarity">
-                <id-card :data="idCard" />
-              </p>
-              <p>
-                时间：2021-10-19    18:40:43
-              </p>
-            </div>
-          </div>
-          <div class="face-alarm-item">
-            <div class="photo">
-              <el-image
-                class="img"
-                :src="demoImg"
-              />
-            </div>
-            <div class="info-wrapper">
-              <p class="row-first">
-                <span class="name">汪屽永</span>
-                <person-flag
-                  class="flag"
-                  :data="flag"
-                  :limit="1"
-                />
-              </p>
-              <p class="similarity">
-                相似度：90.95%
-              </p>
-              <p class="similarity">
-                <id-card :data="idCard" />
-              </p>
-              <p>
-                时间：2021-10-19    18:40:43
-              </p>
-            </div>
-          </div>
-          <div class="face-alarm-item">
-            <div class="photo">
-              <el-image
-                class="img"
-                :src="demoImg"
-              />
-            </div>
-            <div class="info-wrapper">
-              <p class="row-first">
-                <span class="name">汪屽永</span>
-                <person-flag
-                  class="flag"
-                  :data="flag"
-                  :limit="1"
-                />
-              </p>
-              <p class="similarity">
-                相似度：90.95%
-              </p>
-              <p class="similarity">
-                <id-card :data="idCard" />
-              </p>
-              <p>
-                时间：2021-10-19 18:40:43
-              </p>
-            </div>
-          </div>
+          <face-alarm-item
+            v-for="item of 10"
+            :key="item"
+          />
         </div>
       </el-collapse-item>
       <el-collapse-item
@@ -276,18 +145,14 @@
 
 <script>
 import demoImg from '../images/demo-photo.png';
-import PersonFlag from '../../common/person-flag/person-flag';
-import IdCard from '../../common/id-card/id-card';
 import TypeText from '../../common/type-text/type-text';
+import FaceAlarmItem from '../face-alarm-item/face-alarm-item';
 export default {
   name: 'CaptureAlarmTodayAlarm',
-  components: {TypeText, IdCard, PersonFlag},
+  components: {FaceAlarmItem, TypeText},
   data(){
     return {
-      active: '2',
-      demoImg,
-      flag: '毒|前科,治|历史在逃',
-      idCard: '35010319555545454',
+      active: '1',
     };
   }
 };

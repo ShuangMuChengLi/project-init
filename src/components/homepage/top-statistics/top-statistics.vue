@@ -6,7 +6,7 @@
           <p class="label">
             执法记录仪总数
           </p>
-          <p class="value">
+          <p class="value orange">
             <span class="number">260</span>  台
           </p>
         </div>
@@ -14,7 +14,7 @@
           <p class="label">
             在线数
           </p>
-          <p class="value">
+          <p class="value blue">
             <span class="number">260</span>  台
           </p>
         </div>
@@ -22,7 +22,7 @@
           <p class="label">
             出警数
           </p>
-          <p class="value">
+          <p class="value green">
             <span class="number">260</span>  台
           </p>
         </div>
@@ -34,7 +34,7 @@
           <p class="label">
             执法记录仪总数
           </p>
-          <p class="value">
+          <p class="value orange">
             <span class="number">260</span>  台
           </p>
         </div>
@@ -42,7 +42,7 @@
           <p class="label">
             在线数
           </p>
-          <p class="value">
+          <p class="value orange">
             <span class="number">260</span>  台
           </p>
         </div>
@@ -50,7 +50,7 @@
           <p class="label">
             出警数
           </p>
-          <p class="value">
+          <p class="value orange">
             <span class="number">260</span>  台
           </p>
         </div>
@@ -58,7 +58,7 @@
           <p class="label">
             执法记录仪总数
           </p>
-          <p class="value">
+          <p class="value orange">
             <span class="number">260</span>  台
           </p>
         </div>
@@ -66,7 +66,7 @@
           <p class="label">
             在线数
           </p>
-          <p class="value">
+          <p class="value orange">
             <span class="number">260</span>  台
           </p>
         </div>
@@ -74,7 +74,7 @@
           <p class="label">
             出警数
           </p>
-          <p class="value">
+          <p class="value orange">
             <span class="number">260</span>  台
           </p>
         </div>
