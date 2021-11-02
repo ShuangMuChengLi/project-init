@@ -1,0 +1,74 @@
+.today-alarm{
+  /deep/.collapse{
+    border-bottom: unset;
+    border-top: unset;
+    .el-collapse-item__header{
+      background-color: #24477a;
+      border-bottom: unset;
+    }
+   .el-collapse-item__arrow{
+      color: #fff;
+    }
+    .el-collapse-item__wrap{
+      border-bottom: unset;
+    }
+    .el-collapse-item__content{
+      background-color: #143462;
+      border-bottom: unset;
+      color: #fff;
+    }
+    .face-alarm-title{
+      display: flex;
+      color: #fff;
+      justify-content: space-between;
+      flex: auto;
+      .title-wrapper{
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
+        .face-icon{
+          background: url("../images/face-alarm.png") 0 0 no-repeat;
+          width: 14px;
+          height: 14px;
+          margin-right: 5px;
+        }
+      }
+      .color-rule-wrapper{
+        display: flex;
+        margin-right: 10px;
+        .color-rule-item{
+          display: flex;
+          align-items: center;
+          margin-left: 5px;
+          .color-point{
+            display: inline-block;
+            margin-right: 3px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+          }
+        }
+        .one{
+          color: #fc5155;
+          .color-point{
+            background-color: #fc5155;
+          }
+        }
+        .second{
+          color: #ffb137;
+          .color-point{
+            background-color: #ffb137;
+          }
+        }
+        .third{
+          color: #67e967;
+          .color-point{
+            background-color: #67e967;
+          }
+        }
+      }
+    }
+  }
+
+}
+
