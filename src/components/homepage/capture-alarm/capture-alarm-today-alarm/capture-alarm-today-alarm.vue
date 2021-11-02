@@ -13,7 +13,7 @@
               <span>人脸告警</span>
             </div>
             <div class="color-rule-wrapper">
-              <div class="color-rule-item one">
+              <div class="color-rule-item first">
                 <i class="color-point" />
                 <span class="text">一级</span>
               </div>
@@ -31,14 +31,244 @@
         <div class="face-alarm-list">
           <div class="face-alarm-item">
             <div class="photo">
-              <el-image :src="demoImg" />
+              <el-image
+                class="img"
+                :src="demoImg"
+              />
+            </div>
+            <div class="info-wrapper">
+              <p class="row-first">
+                <span class="name">汪屽永</span>
+                <person-flag
+                  class="flag"
+                  :data="flag"
+                  :limit="1"
+                />
+              </p>
+              <p class="similarity">
+                相似度：90.95%
+              </p>
+              <p class="similarity">
+                <id-card :data="idCard" />
+              </p>
+              <p>
+                时间：2021-10-19    18:40:43
+              </p>
+            </div>
+          </div>
+          <div class="face-alarm-item">
+            <div class="photo">
+              <el-image
+                class="img"
+                :src="demoImg"
+              />
+            </div>
+            <div class="info-wrapper">
+              <p class="row-first">
+                <span class="name">汪屽永</span>
+                <person-flag
+                  class="flag"
+                  :data="flag"
+                  :limit="1"
+                />
+              </p>
+              <p class="similarity">
+                相似度：90.95%
+              </p>
+              <p class="similarity">
+                <id-card :data="idCard" />
+              </p>
+              <p>
+                时间：2021-10-19    18:40:43
+              </p>
+            </div>
+          </div>
+          <div class="face-alarm-item">
+            <div class="photo">
+              <el-image
+                class="img"
+                :src="demoImg"
+              />
+            </div>
+            <div class="info-wrapper">
+              <p class="row-first">
+                <span class="name">汪屽永</span>
+                <person-flag
+                  class="flag"
+                  :data="flag"
+                  :limit="1"
+                />
+              </p>
+              <p class="similarity">
+                相似度：90.95%
+              </p>
+              <p class="similarity">
+                <id-card :data="idCard" />
+              </p>
+              <p>
+                时间：2021-10-19    18:40:43
+              </p>
+            </div>
+          </div>
+          <div class="face-alarm-item">
+            <div class="photo">
+              <el-image
+                class="img"
+                :src="demoImg"
+              />
+            </div>
+            <div class="info-wrapper">
+              <p class="row-first">
+                <span class="name">汪屽永</span>
+                <person-flag
+                  class="flag"
+                  :data="flag"
+                  :limit="1"
+                />
+              </p>
+              <p class="similarity">
+                相似度：90.95%
+              </p>
+              <p class="similarity">
+                <id-card :data="idCard" />
+              </p>
+              <p>
+                时间：2021-10-19    18:40:43
+              </p>
+            </div>
+          </div>
+          <div class="face-alarm-item">
+            <div class="photo">
+              <el-image
+                class="img"
+                :src="demoImg"
+              />
+            </div>
+            <div class="info-wrapper">
+              <p class="row-first">
+                <span class="name">汪屽永</span>
+                <person-flag
+                  class="flag"
+                  :data="flag"
+                  :limit="1"
+                />
+              </p>
+              <p class="similarity">
+                相似度：90.95%
+              </p>
+              <p class="similarity">
+                <id-card :data="idCard" />
+              </p>
+              <p>
+                时间：2021-10-19 18:40:43
+              </p>
             </div>
           </div>
         </div>
       </el-collapse-item>
-      <el-collapse-item title="反馈 Feedback">
-        <div>控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；</div>
-        <div>页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。</div>
+      <el-collapse-item
+        name="2"
+      >
+        <template slot="title">
+          <div class="face-alarm-title">
+            <div class="title-wrapper">
+              <i class="warn-icon" />
+              <span>陀螺仪告警</span>
+            </div>
+          </div>
+        </template>
+        <div class="device-warn-list">
+          <div class="device-warn-item">
+            <p>
+              <span class="name">告警类型：</span>
+              <type-text data="倒地告警" />
+            </p>
+            <p>
+              <span class="name">记录仪名称:</span>
+              <span class="link">市局111</span>
+            </p>
+            <p>
+              <span class="name">所属派出所：</span>
+              <span class="value">思明分局中华派出所</span>
+            </p>
+            <p>
+              <span class="name">告警时间：</span>
+              <span class="value">2021-10-19 18:40:43</span>
+            </p>
+          </div>
+          <div class="device-warn-item">
+            <p>
+              <span class="name">告警类型：</span>
+              <type-text data="倒地告警" />
+            </p>
+            <p>
+              <span class="name">记录仪名称:</span>
+              <span class="link">市局111</span>
+            </p>
+            <p>
+              <span class="name">所属派出所：</span>
+              <span class="value">思明分局中华派出所</span>
+            </p>
+            <p>
+              <span class="name">告警时间：</span>
+              <span class="value">2021-10-19 18:40:43</span>
+            </p>
+          </div>
+          <div class="device-warn-item">
+            <p>
+              <span class="name">告警类型：</span>
+              <type-text data="倒地告警" />
+            </p>
+            <p>
+              <span class="name">记录仪名称:</span>
+              <span class="link">市局111</span>
+            </p>
+            <p>
+              <span class="name">所属派出所：</span>
+              <span class="value">思明分局中华派出所</span>
+            </p>
+            <p>
+              <span class="name">告警时间：</span>
+              <span class="value">2021-10-19 18:40:43</span>
+            </p>
+          </div>
+          <div class="device-warn-item">
+            <p>
+              <span class="name">告警类型：</span>
+              <type-text data="倒地告警" />
+            </p>
+            <p>
+              <span class="name">记录仪名称:</span>
+              <span class="link">市局111</span>
+            </p>
+            <p>
+              <span class="name">所属派出所：</span>
+              <span class="value">思明分局中华派出所</span>
+            </p>
+            <p>
+              <span class="name">告警时间：</span>
+              <span class="value">2021-10-19 18:40:43</span>
+            </p>
+          </div>
+          <div class="device-warn-item">
+            <p>
+              <span class="name">告警类型：</span>
+              <type-text data="倒地告警" />
+            </p>
+            <p>
+              <span class="name">记录仪名称:</span>
+              <span class="link">市局111</span>
+            </p>
+            <p>
+              <span class="name">所属派出所：</span>
+              <span class="value">思明分局中华派出所</span>
+            </p>
+            <p>
+              <span class="name">告警时间：</span>
+              <span class="value">2021-10-19 18:40:43</span>
+            </p>
+          </div>
+        </div>
       </el-collapse-item>
     </el-collapse>
   </div>
@@ -46,11 +276,18 @@
 
 <script>
 import demoImg from '../images/demo-photo.png';
+import PersonFlag from '../../common/person-flag/person-flag';
+import IdCard from '../../common/id-card/id-card';
+import TypeText from '../../common/type-text/type-text';
 export default {
   name: 'CaptureAlarmTodayAlarm',
+  components: {TypeText, IdCard, PersonFlag},
   data(){
     return {
-      active: '1'
+      active: '2',
+      demoImg,
+      flag: '毒|前科,治|历史在逃',
+      idCard: '35010319555545454',
     };
   }
 };

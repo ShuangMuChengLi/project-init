@@ -1,46 +1,80 @@
-.today-alarm{
-  /deep/.collapse{
+.dashBottomBorder{
+  border-bottom: 1px dashed #204479;
+}
+@firstColor: #fc5155;
+@secondColor: #ffb137;
+@thirdColor: #67e967;
+.today-alarm {
+  height: 100%;
+  overflow-y: hidden;
+  /deep/ .collapse {
     border-bottom: unset;
     border-top: unset;
-    .el-collapse-item__header{
+    height: 100%;
+    .el-collapse-item{
+      margin-bottom: 8px;
+    }
+    .el-collapse-item.is-active{
+      height: calc(100% - 48px - 16px);
+    }
+    .el-collapse-item__header {
       background-color: #24477a;
       border-bottom: unset;
     }
-   .el-collapse-item__arrow{
+
+    .el-collapse-item__arrow {
       color: #fff;
     }
-    .el-collapse-item__wrap{
+
+    .el-collapse-item__wrap {
       border-bottom: unset;
-    }
-    .el-collapse-item__content{
+      height: calc(100% - 48px);
+      overflow-y: auto;
       background-color: #143462;
+    }
+
+    .el-collapse-item__content {
+      height: 100%;
+      padding-bottom: unset;
       border-bottom: unset;
       color: #fff;
     }
-    .face-alarm-title{
+
+    .face-alarm-title {
       display: flex;
       color: #fff;
       justify-content: space-between;
       flex: auto;
-      .title-wrapper{
+
+      .title-wrapper {
         display: flex;
         align-items: center;
         margin-left: 10px;
-        .face-icon{
+
+        .face-icon {
           background: url("../images/face-alarm.png") 0 0 no-repeat;
           width: 14px;
           height: 14px;
           margin-right: 5px;
         }
+        .warn-icon {
+          background: url("../images/warn.png") 0 0 no-repeat;
+          width: 14px;
+          height: 14px;
+          margin-right: 5px;
+        }
       }
-      .color-rule-wrapper{
+
+      .color-rule-wrapper {
         display: flex;
         margin-right: 10px;
-        .color-rule-item{
+
+        .color-rule-item {
           display: flex;
           align-items: center;
           margin-left: 5px;
-          .color-point{
+
+          .color-point {
             display: inline-block;
             margin-right: 3px;
             width: 10px;
@@ -48,27 +82,106 @@
             border-radius: 50%;
           }
         }
-        .one{
-          color: #fc5155;
-          .color-point{
-            background-color: #fc5155;
+        .first {
+          color: @firstColor;
+
+          .color-point {
+            background-color: @firstColor;
           }
         }
-        .second{
-          color: #ffb137;
-          .color-point{
-            background-color: #ffb137;
+
+        .second {
+          color:@secondColor;
+
+          .color-point {
+            background-color: @secondColor
           }
         }
-        .third{
-          color: #67e967;
-          .color-point{
-            background-color: #67e967;
+
+        .third {
+          color: @thirdColor;
+
+          .color-point {
+            background-color: @thirdColor;
           }
         }
       }
     }
+
+    .face-alarm-list {
+      height: 100%;
+      overflow: auto;
+      .face-alarm-item {
+        .dashBottomBorder;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        height: 150px;
+        &.first{
+          .photo{
+            border: 2px solid @firstColor;
+          }
+        }
+        &.second{
+          .photo{
+            border: 2px solid @secondColor;
+          }
+        }
+        &.third{
+          .photo{
+            border: 2px solid @thirdColor;
+          }
+        }
+        .photo {
+          width: 105px;
+          height: 105px;
+          box-sizing: border-box;
+          margin-left: 20px;
+          border-radius: 5px;
+          .img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .info-wrapper{
+          flex: auto;
+          margin-left: 10px;
+          line-height: 2;
+          .row-first{
+            display: flex;
+            .name{
+              margin-right: 5px;
+              color: #37fff8;
+            }
+          }
+          .similarity{
+            color: #ff9d46
+          }
+        }
+      }
+    }
+    .device-warn-list{
+      height: 100%;
+      overflow: auto;
+      .device-warn-item{
+        .dashBottomBorder;
+        padding-left: 25px;
+        height: 135px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        line-height: 2;
+        .name{
+          display: inline-block;
+          margin-right: 5px;
+          min-width: 85px;
+        }
+      }
+    }
   }
-
 }
-
+.link{
+  color: #35f6f0;
+  text-decoration: underline;
+  cursor: pointer;
+}

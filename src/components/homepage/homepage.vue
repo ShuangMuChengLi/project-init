@@ -22,7 +22,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import TopStatistics from './top-statistics/top-statistics';
 import HomepageHeader from './homepage-header/homepage-header';
