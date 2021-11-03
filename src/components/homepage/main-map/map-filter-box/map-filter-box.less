@@ -1,0 +1,69 @@
+.filter-box{
+  display:flex;
+  .filter-item{
+    width: 110px;
+    height: 40px;
+    line-height: 40px;
+    margin-left: 1px;
+    cursor: pointer;
+    color: #fff;
+    .filter-bar{
+      display: flex;
+      align-items: center;
+      height: 100%;
+      padding-left: 11px;
+      justify-content: space-between;
+      border-radius: 3px;
+      background-color: #184993;
+      .filter-bar-body{
+        display: flex;
+        align-items: center;
+        height: 100%;
+      }
+
+    }
+    .filter-menu{
+      margin-top: 3px;
+      border-radius: 3px;
+      background-color: #184993;
+      .filter-menu-item{
+        display: flex;
+        align-items: center;
+        width: 110px;
+        height: 40px;
+        line-height: 40px;
+        padding-left: 11px;
+        &:hover{
+          background-color: #396aad;
+        }
+      }
+    }
+    .filter-icon{
+      display: inline-block;
+      width: 22px;
+      height: 22px;
+      margin-right: 5px;
+      &.warn{
+        background: url("./images/warn.png") 0 0 no-repeat;
+        &.disable{
+          background: url("./images/warn-disable.png") 0 0 no-repeat;
+        }
+      }
+      &.police-alarm{
+        background: url("./images/police-alarm.png") 0 0 no-repeat;
+        &.disable{
+          background: url("./images/police-alarm-disable.png") 0 0 no-repeat;
+        }
+
+      }
+      &.police-device{
+        background: url("./images/police-device.png") 0 0 no-repeat;
+        &.disable{
+          background: url("./images/police-device-disable.png") 0 0 no-repeat;
+        }
+      }
+    }
+
+
+  }
+}

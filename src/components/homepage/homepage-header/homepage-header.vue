@@ -12,6 +12,20 @@
         <i class="app-icon" />
         <span>实战应用</span>
         <i class="el-icon-caret-bottom" />
+        <div v-if="false" class="submenu">
+          <div class="submenu-item">
+            子菜单
+          </div>
+          <div class="submenu-item">
+            子菜单
+          </div>
+          <div class="submenu-item">
+            子菜单
+          </div>
+          <div class="submenu-item">
+            子菜单
+          </div>
+        </div>
       </div>
       <div class="menu-item">
         <i class="system-icon" />
