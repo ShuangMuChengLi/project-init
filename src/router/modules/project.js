@@ -3,7 +3,6 @@
  * @type {[null]}
  */
 const projectRoutes = [
-  { path: '/index', component: ()=>import('../../components/index.vue') },
-  { path: '/homepage', component: ()=>import('../../components/homepage/homepage.vue') },
+  { path: '/index', component: ()=>import('../../components/index.vue') }
 ];
 export { projectRoutes };

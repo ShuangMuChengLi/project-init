@@ -1768,11 +1768,6 @@ alphanum-sort@^1.0.0:
   resolved "https://registry.npm.taobao.org/alphanum-sort/download/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
 
-animate.css@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/animate.css/-/animate.css-4.1.1.tgz#614ec5a81131d7e4dc362a58143f7406abd68075"
-  integrity sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ==
-
 ansi-colors@^3.0.0, ansi-colors@^3.2.1:
   version "3.2.4"
   resolved "https://registry.npm.taobao.org/ansi-colors/download/ansi-colors-3.2.4.tgz#e3a3da4bfbae6c86a9c285625de124a234026fbf"
@@ -5074,11 +5069,6 @@ html-webpack-plugin@^3.2.0:
     tapable "^1.0.0"
     toposort "^1.0.0"
     util.promisify "1.0.0"
-
-html5-storage@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/html5-storage/-/html5-storage-1.0.3.tgz#935b4d12fe1022d19ace367300bc15c8ea63052e"
-  integrity sha512-vSqBSlFXVPZOVLfUejinHOSfsVsAEm7hn3dDvxW+Tl+6hsHLwQvhVVA7b4AozyQKmjW0J4TbG9UxcnfnLY5A3g==
 
 htmlparser2@^3.3.0:
   version "3.10.1"
@@ -8665,21 +8655,6 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
   dependencies:
     hash-base "^3.0.0"
     inherits "^2.0.1"
-
-rk-cookie@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/rk-cookie/-/rk-cookie-1.0.1.tgz#2cf80eb631023197d3bb6918613c4f80c563c38a"
-  integrity sha512-ITiH1lSFmF76TxADLu+UzRGBh57TNR/WISWM3quyyOc0qQJ4MxPd+97N21f76JUjshCRT5hiI037nin8itQRdg==
-
-rk-encrypt@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/rk-encrypt/-/rk-encrypt-1.0.4.tgz#ae54634b9d9735fc9203da4807b776a6730e6387"
-  integrity sha512-c4+x8op2vU5ki+0WUSCb4KbB0D0NwSOqVUPg9cLO+/3tlns6Hdzckuq+uICsA6DLlzJFdjBkjS1BcAVsSOo4/g==
-
-rk-util@^0.0.7:
-  version "0.0.7"
-  resolved "https://registry.npm.taobao.org/rk-util/download/rk-util-0.0.7.tgz#8cd1b21e6ca5dc04ce23504ddf0485bb1aee0acd"
-  integrity sha1-jNGyHmyl3ATOI1BN3wSFuxruCs0=
 
 rsvp@^4.8.4:
   version "4.8.5"

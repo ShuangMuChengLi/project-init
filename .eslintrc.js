@@ -43,6 +43,6 @@ module.exports = {
       'error',
       'always'
     ],
-    // 'comma-dangle': ['error', 'never'] // 数组后面不加逗号
+    'comma-dangle': ['error', 'never'] // 数组后面不加逗号
   }
 };
