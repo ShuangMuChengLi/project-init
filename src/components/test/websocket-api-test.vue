@@ -6,6 +6,7 @@
 
 <script>
 import { api } from '../../../config/api-config';
+import {setCookie} from '../../js/tools/cookie-util/cookie-util';
 
 export default {
   name: 'VueTest',
@@ -13,6 +14,7 @@ export default {
     return {};
   },
   mounted() {
+    setCookie('session', 1);
     let url = api.websocket.policeCarInfo;
     let websocket = new WebSocket(url);
     //打开事件

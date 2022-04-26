@@ -32,7 +32,6 @@ module.exports = {
     'no-multi-spaces': [
       'error'
     ],
-    'no-ternary': 'warn', // 三元运算符会出现警告
     'space-infix-ops': ['error'], // 二元运算符左右两边要有一个空格
     'comma-spacing': ['error', { 'before': false, 'after': true }], // 逗号前没空格，逗号后有空格
     'quotes': [
@@ -43,6 +42,5 @@ module.exports = {
       'error',
       'always'
     ],
-    'comma-dangle': ['error', 'never'] // 数组后面不加逗号
   }
 };
