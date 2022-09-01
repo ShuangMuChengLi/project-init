@@ -31,5 +31,5 @@
     "serverNginxConfPath": "/root/nginx",
     "localNginxConfPath": "../config/nginx.conf"
   },
-  "redirectRoute": "/index"
+  "redirectRoute": "/vue-test"
 }

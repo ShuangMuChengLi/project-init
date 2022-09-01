@@ -39,7 +39,7 @@ export default {
     },
     getLabel(item, key){
       if(key % 2 === 1){
-        return (Math.ceil(item / 2) - 7 ) * 10 + '%';
+        return (Math.ceil(item / 2) - 7) * 10 + '%';
       }else{
         return '-';
       }

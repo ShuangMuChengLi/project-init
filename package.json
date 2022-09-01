@@ -2,15 +2,6 @@
   "name": "project-init",
   "version": "3.0.4",
   "private": true,
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,vue}": [
-      "vue-cli-service lint --fix --ext .js,.vue --ignore-path .gitignore .",
-      "git add"
-    ]
-  },
   "scripts": {
     "start": "vue-cli-service serve",
     "api": "set NODE_ENV=development&& node ./bin/www",
@@ -36,6 +27,7 @@
     "element-ui": "^2.13.1",
     "lodash": "^4.17.20",
     "moment": "^2.24.0",
+    "read-excel-file": "^5.4.5",
     "vue": "^2.6.11",
     "vue-router": "^3.1.6",
     "vuex": "^3.1.3"
