@@ -3,18 +3,16 @@ let path = require('path');
 let fs = require('fs');
 let readXlsxFile = require('read-excel-file/node');
 let data = require('./level.json');
-let list = [
 
-];
 async function main(){
-  await readXlsxFile(path.resolve(__dirname, '2.xlsx')).then((rows) => {
-    list = rows;
-    // `rows` is an array of rows
-    // each row being an array of cells.
+  let list = await readXlsxFile(path.resolve(__dirname, '2.xlsx')).then((rows) => {
+    return rows;
   });
   let result = [];
-  for(let item of list){
-    let value = item[5];
+  for(let i = 1; i < list.length; i++){
+    let item = list[i];
+
+    let value = item[6];
     let name = item[0];
     let findItem = _.find(data, {code: item[1]});
     if(!findItem){
@@ -47,6 +45,7 @@ async function main(){
       name: name,
       value: value,
       list: rangeList,
+      current: findItem.current,
       positionList: positionList,
     });
   }

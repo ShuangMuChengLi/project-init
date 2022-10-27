@@ -7,7 +7,7 @@ let list = [
 
 ];
 async function main(){
-  let rate = 0.1;
+  let rate = 0.15;
   function fn(value){
     let levelList = [];
     let d = value * rate;

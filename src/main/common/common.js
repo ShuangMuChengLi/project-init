@@ -11,6 +11,7 @@ import App from '../../components/App';
  *   router:vue router
  * }
  */
+// console.log(process.env.VUE_APP_TITLE);
 export default function(options){
   Vue.use(ElementUI);
   new Vue({
