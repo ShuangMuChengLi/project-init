@@ -77,7 +77,11 @@ module.exports = {
       '/local-api': {
         target: 'http://localhost:' + config.api_local_port,
         changeOrigin: true
-      }
+      },
+      '/v5': {
+        target: 'https://stock.xueqiu.com',
+        changeOrigin: true
+      },
     }
   }
 };

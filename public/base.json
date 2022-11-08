@@ -2,8 +2,9 @@
   {
     "name": "五粮液",
     "code": "000858",
-    "value": 137.1,
-    "current": 137.1,
+    "prevCode": "SZ",
+    "space": 20,
+    "type": "消费",
     "history": [
       {
         "count": 100,
@@ -12,26 +13,45 @@
       {
         "count": 100,
         "value": 167.13
-      },
+      }
+    ]
+  },
+  {
+    "name": "中航光电",
+    "code": "002179",
+    "prevCode": "SZ",
+    "space": 0,
+    "type": "军工、电子",
+    "history": [
+      {
+        "count": 100,
+        "value": 61.92
+      }
     ]
   },
   {
     "name": "招商银行",
     "code": "600036",
-    "value": 33.25,
-    "current": 33.25,
+    "prevCode": "SH",
+    "space": 60,
+    "type": "银行",
     "history": [
       {
         "count": 200,
         "value": 33.25
+      },
+      {
+        "count": 400,
+        "value": 62.87
       }
     ]
   },
   {
     "name": "中国平安",
     "code": "601318",
-    "value": 51.8,
-    "current": 51.8,
+    "prevCode": "SH",
+    "space": 60,
+    "type": "保险",
     "history": [
       {
         "count": 400,
@@ -42,8 +62,9 @@
   {
     "name": "上港集团",
     "code": "600018",
-    "value": 6.16,
-    "current": 6.16,
+    "prevCode": "SH",
+    "space": 20,
+    "type": "物流",
     "history": [
       {
         "count": 1900,
@@ -54,24 +75,26 @@
   {
     "name": "美的集团",
     "code": "000333",
-    "value": 44.47,
-    "current": 44.47,
+    "prevCode": "SZ",
+    "space": 40,
+    "type": "家电",
     "history": [
       {
         "count": 100,
         "value": 44.47
       },
       {
-        "count": 100,
-        "value": 59.33
+        "count": 200,
+        "value": 88.56
       }
     ]
   },
   {
     "name": "伊利股份",
     "code": "600887",
-    "value": 32.68,
-    "current": 32.68,
+    "prevCode": "SH",
+    "space": 60,
+    "type": "消费",
     "history": [
       {
         "count": 200,
@@ -90,8 +113,9 @@
   {
     "name": "海螺水泥",
     "code": "600585",
-    "value": 31.15,
-    "current": 31.15,
+    "prevCode": "SH",
+    "space": 40,
+    "type": "房地产、基建",
     "history": [
       {
         "count": 200,
@@ -110,8 +134,9 @@
   {
     "name": "特变电工",
     "code": "600089",
-    "value": 24.05,
-    "current": 24.05,
+    "prevCode": "SH",
+    "space": 20,
+    "type": "电力",
     "history": [
       {
         "count": 200,
@@ -126,8 +151,9 @@
   {
     "name": "长江电力",
     "code": "600900",
-    "value": 23.33,
-    "current": 23.33,
+    "prevCode": "SH",
+    "space": 0,
+    "type": "电力",
     "history": [
       {
         "count": 300,
@@ -138,8 +164,9 @@
   {
     "name": "紫金矿业",
     "code": "601899",
-    "value": 8.76,
-    "current": 8.76,
+    "prevCode": "SH",
+    "space": 0,
+    "type": "金属",
     "history": [
       {
         "count": 600,
@@ -150,20 +177,27 @@
   {
     "name": "三一重工",
     "code": "600031",
-    "value": 16.32,
-    "current": 16.32,
+    "prevCode": "SH",
+    "base": 33.18,
+    "space": 0,
+    "type": "房地产、基建",
     "history": [
       {
         "count": 300,
         "value": 16.32
+      },
+      {
+        "count": 0,
+        "value": 5058
       }
     ]
   },
   {
     "name": "HS300ETF",
     "code": "510310",
-    "value": 1.73,
-    "current": 1.73,
+    "prevCode": "SH",
+    "type": "宽基",
+    "space": 20,
     "history": [
       {
         "count": 2800,
@@ -178,8 +212,9 @@
   {
     "name": "通威股份",
     "code": "600438",
-    "value": 47.59,
-    "current": 47.59,
+    "prevCode": "SH",
+    "space": 20,
+    "type": "光伏、饲料",
     "history": [
       {
         "count": 100,
@@ -195,24 +230,28 @@
   {
     "name": "陕西煤业",
     "code": "601225",
-    "value": 19.84,
-    "current": 19.84,
+    "prevCode": "SH",
+    "base": 21.47,
+    "space": 0,
+    "type": "旧能源",
     "history": [
       {
-        "count": 200,
-        "value": 19.84
+        "count": 100,
+        "value": -854
       }
     ]
   },
   {
     "name": "亿利洁能",
     "code": "600277",
-    "value": 4.52,
-    "current": 4.52,
+    "prevCode": "SH",
+    "base": 4.58,
+    "space": 0,
+    "type": "化工",
     "history": [
       {
-        "count": 1200,
-        "value": 4.52
+        "count": 100,
+        "value": 4.58
       }
     ]
   }

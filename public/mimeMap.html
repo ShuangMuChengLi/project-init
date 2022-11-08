@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>图标/文字图层</title>
+    <link rel="stylesheet" href="https://minedata.cn/nce-static/support/demo/js-api/zh/css/demo.css">
+    <!-- 引入MineMap API插件 -->
+    <link rel="stylesheet" href="https://minemap.minedata.cn/minemapapi/v2.1.1/minemap.css">
+    <script src="https://minemap.minedata.cn/minemapapi/v2.1.1/minemap.js"></script>
+    <style>
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+  /**
+   * 全局参数设置
+   */
+  minemap.domainUrl = 'https://minemap.minedata.cn';
+  minemap.dataDomainUrl = 'https://minemap.minedata.cn';
+  minemap.serverDomainUrl = 'https://sd-data.minedata.cn';
+  minemap.spriteUrl = 'https://minemap.minedata.cn/minemapapi/v2.1.1/sprite/sprite';
+  minemap.serviceUrl = 'https://service.minedata.cn/service';
+
+  minemap.key = 'ca78282dfff148e3be5390ce027068f5';
+  minemap.solution = 12877;
+
+  var map = new minemap.Map({
+    container: 'map',
+    style: 'https://service.minedata.cn/map/solu/style/12877',
+    center: [116.46,39.92],
+    zoom: 10,
+    pitch: 0,
+    maxZoom: 17,
+    minZoom: 3,
+    projection: 'MERCATOR'
+  });
+
+  /**
+   * 创建地图对象后，开始加载地图资源，地图资源加载完成后触发load事件
+   */
+  map.on('load', function () {
+    // 增加自定义数据源、自定义图层
+    addSources();
+    addLayers();
+  });
+
+  function addSources() {
+    var center = map.getCenter();
+    var jsonData = {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [center.lng + 0.03, center.lat + 0.02]
+          },
+          "properties": {
+            "title": "大学",
+            "kind": "school"
+          },
+        }, {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [center.lng + 0.01, center.lat - 0.01]
+          },
+          "properties": {
+            "title": "公园",
+            "kind": "park"
+          },
+        }, {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [center.lng - 0.03, center.lat - 0.02]
+          },
+          "properties": {
+            "title": "医院",
+            "kind": "hospital"
+          }
+        }
+      ]
+    };
+    map.addSource("pointSource", {
+      "type": "geojson",
+      "data": jsonData
+    });
+  }
+
+  function addLayers() {
+    map.addLayer({
+      "id": "symbolLayer",
+      "type": "symbol",
+      "source": "pointSource",
+      "layout": {
+        "visibility": "visible",
+        "icon-image": "marker-15-6",
+        "text-field": "{title}",
+        "text-offset": [0, 0.6],
+        "text-anchor": "top",
+        "text-size": 14,
+        "icon-allow-overlap": true,  //图标允许压盖
+        "text-allow-overlap": true,   //图标覆盖文字允许压盖
+      },
+      "paint": {
+        "icon-color": {
+          "type": "categorical",
+          "property": "kind",
+          "stops": [["school", "#ff0000"], ["park", "#00ff00"], ["hospital", "#0000ff"]],
+          "default": "#ff0000"
+        },
+        "text-color": {
+          "type": "categorical",
+          "property": "kind",
+          "stops": [["school", "#ff0000"], ["park", "#00ff00"], ["hospital", "#0000ff"]],
+          "default": "#ff0000"
+        },
+        "text-halo-color": "#000000",
+        "text-halo-width": 0.5,
+      },
+      "minzoom": 7,
+      "maxzoom": 17.5
+    });
+  }
+
+</script>
+</body>
