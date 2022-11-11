@@ -3,7 +3,6 @@
     "name": "五粮液",
     "code": "000858",
     "prevCode": "SZ",
-    "space": 20,
     "type": "消费",
     "history": [
       {
@@ -20,7 +19,6 @@
     "name": "中航光电",
     "code": "002179",
     "prevCode": "SZ",
-    "space": 0,
     "type": "军工、电子",
     "history": [
       {
@@ -33,7 +31,6 @@
     "name": "招商银行",
     "code": "600036",
     "prevCode": "SH",
-    "space": 60,
     "type": "银行",
     "history": [
       {
@@ -50,7 +47,6 @@
     "name": "中国平安",
     "code": "601318",
     "prevCode": "SH",
-    "space": 60,
     "type": "保险",
     "history": [
       {
@@ -63,7 +59,6 @@
     "name": "上港集团",
     "code": "600018",
     "prevCode": "SH",
-    "space": 20,
     "type": "物流",
     "history": [
       {
@@ -76,7 +71,6 @@
     "name": "美的集团",
     "code": "000333",
     "prevCode": "SZ",
-    "space": 40,
     "type": "家电",
     "history": [
       {
@@ -93,7 +87,6 @@
     "name": "伊利股份",
     "code": "600887",
     "prevCode": "SH",
-    "space": 60,
     "type": "消费",
     "history": [
       {
@@ -114,7 +107,6 @@
     "name": "海螺水泥",
     "code": "600585",
     "prevCode": "SH",
-    "space": 40,
     "type": "房地产、基建",
     "history": [
       {
@@ -135,7 +127,6 @@
     "name": "特变电工",
     "code": "600089",
     "prevCode": "SH",
-    "space": 20,
     "type": "电力",
     "history": [
       {
@@ -152,9 +143,12 @@
     "name": "长江电力",
     "code": "600900",
     "prevCode": "SH",
-    "space": 0,
     "type": "电力",
     "history": [
+      {
+        "count": 200,
+        "value": 20.12
+      },
       {
         "count": 300,
         "value": 23.33
@@ -165,7 +159,6 @@
     "name": "紫金矿业",
     "code": "601899",
     "prevCode": "SH",
-    "space": 0,
     "type": "金属",
     "history": [
       {
@@ -179,7 +172,6 @@
     "code": "600031",
     "prevCode": "SH",
     "base": 33.18,
-    "space": 0,
     "type": "房地产、基建",
     "history": [
       {
@@ -197,7 +189,6 @@
     "code": "510310",
     "prevCode": "SH",
     "type": "宽基",
-    "space": 20,
     "history": [
       {
         "count": 2800,
@@ -213,7 +204,6 @@
     "name": "通威股份",
     "code": "600438",
     "prevCode": "SH",
-    "space": 20,
     "type": "光伏、饲料",
     "history": [
       {
@@ -232,26 +222,11 @@
     "code": "601225",
     "prevCode": "SH",
     "base": 21.47,
-    "space": 0,
     "type": "旧能源",
     "history": [
       {
         "count": 100,
-        "value": -854
-      }
-    ]
-  },
-  {
-    "name": "亿利洁能",
-    "code": "600277",
-    "prevCode": "SH",
-    "base": 4.58,
-    "space": 0,
-    "type": "化工",
-    "history": [
-      {
-        "count": 100,
-        "value": 4.58
+        "value": 21.47
       }
     ]
   }
