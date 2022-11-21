@@ -95,7 +95,7 @@ export default {
   },
   computed:{
     isOpen(){
-      return this.now.isBetween(
+      return this.now.day() > 0 && this.now.day() < 6 && (this.now.isBetween(
         moment().set('hour', 9).set('minute', 15).set('second', 0),
         moment().set('hour', 9).set('minute', 25).set('second', 0),
       ) || this.now.isBetween(
@@ -105,7 +105,7 @@ export default {
         this.now.isBetween(
           moment().set('hour', 13).set('minute', 0).set('second', 0),
           moment().set('hour', 15).set('minute', 0).set('second', 0),
-        );
+        ));
     }
   },
   async mounted () {
@@ -162,7 +162,17 @@ export default {
         },
         series: [
           {
+            name: 'a1',
             data: data.map(item=>item.profit),
+            showSymbol: false,
+            type: 'line',
+            smooth: true
+          },
+          {
+            name: 'a2',
+            data: data.map(item=>{
+              return item.baseProfit || 0;
+            }),
             showSymbol: false,
             type: 'line',
             smooth: true
@@ -243,11 +253,12 @@ export default {
       let lastCloseValue = _.reduce(this.levelList, function(sum, n) {
         return sum + n.lastCloseValue;
       }, 0);
-      console.log(lastCloseValue);
       this.percentage = _.ceil(this.profit / lastCloseValue * 100, 2) + '%';
       if(this.isOpen){
+        let baseProfit = (_.find(data, {symbol: '510310'})?.percent || 0) / 100 * lastCloseValue;
         this.line.push({
           profit: this.profit,
+          baseProfit: baseProfit,
           time: moment().format('HH:mm:ss')
         });
         axios.post('http://localhost:3000/data', {name: moment().format('YYYY-MM-DD'), data: this.line});
@@ -288,7 +299,6 @@ export default {
           if(d <= prev){
             prev = d;
             position = i;
-            continue;
           }
         }
         return position;
@@ -325,45 +335,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-.alarm, .red{
-  color: red;
-}
-.green{
-  color: green;
-}
-.space{
-  //color: red;
-}
-.current{
-  color: #0000ff;
-}
-.form{
-  width: 100%;
-}
-.row{
-  margin: 10px;
-}
-.right{
-  float: right;
-  margin-right: 100px;
-}
-.number{
-  font-size: 40px;
-  margin-right: 20px;
-}
-.isHide{
-  float: unset;
-  display:block;
-  .label{
-    display: none;
-  }
-}
-.chart{
-  width: 100%;
-  height: 500px;
-}
-.percentage{
-  font-size: 20px;
-}
+@import "vue-test";
 </style>
 

@@ -62,6 +62,10 @@
     "type": "物流",
     "history": [
       {
+        "count": 700,
+        "value": 5.32
+      },
+      {
         "count": 1900,
         "value": 6.16
       }
