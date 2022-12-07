@@ -7,23 +7,7 @@
     "history": [
       {
         "count": 100,
-        "value": 137.1
-      },
-      {
-        "count": 100,
         "value": 167.13
-      }
-    ]
-  },
-  {
-    "name": "中航光电",
-    "code": "002179",
-    "prevCode": "SZ",
-    "type": "军工、电子",
-    "history": [
-      {
-        "count": 100,
-        "value": 61.92
       }
     ]
   },
@@ -50,8 +34,8 @@
     "type": "保险",
     "history": [
       {
-        "count": 400,
-        "value": 51.8
+        "count": 200,
+        "value": 61.627
       }
     ]
   },
@@ -134,6 +118,10 @@
     "type": "电力",
     "history": [
       {
+        "count": 300,
+        "value": 21.71
+      },
+      {
         "count": 200,
         "value": 24.05
       },
@@ -150,24 +138,8 @@
     "type": "电力",
     "history": [
       {
-        "count": 200,
-        "value": 20.12
-      },
-      {
         "count": 300,
         "value": 23.33
-      }
-    ]
-  },
-  {
-    "name": "紫金矿业",
-    "code": "601899",
-    "prevCode": "SH",
-    "type": "金属",
-    "history": [
-      {
-        "count": 600,
-        "value": 8.76
       }
     ]
   },
@@ -217,20 +189,6 @@
       {
         "count": 100,
         "value": 53.95
-      }
-    ]
-
-  },
-  {
-    "name": "陕西煤业",
-    "code": "601225",
-    "prevCode": "SH",
-    "base": 21.47,
-    "type": "旧能源",
-    "history": [
-      {
-        "count": 100,
-        "value": 21.47
       }
     ]
   }

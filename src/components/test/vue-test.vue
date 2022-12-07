@@ -80,7 +80,7 @@ export default {
       tableData: [],
       column: [],
       levelList: [],
-      second: 15,
+      second: 5,
       timer: null,
       next: 0,
       levels: 4,
