@@ -8,7 +8,10 @@
 
 <script>
 export default {
-  name: 'Index'
+  name: 'Index',
+  mounted(){
+
+  }
 };
 </script>
 
