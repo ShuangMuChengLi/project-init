@@ -55,8 +55,8 @@
           <span
             :class="{
               current: getCurrent(scope.row, item),
-              red: scope.row.percent > 0 && (item.prop === 'percentLabel'),
-              green: scope.row.percent < 0 && (item.prop === 'percentLabel'),
+              red: scope.row.percent > 0 && (['percentLabel', 'profitLabel'].includes(item.prop)),
+              green: scope.row.percent < 0 && (['percentLabel', 'profitLabel'].includes(item.prop)),
             }"
           >{{ getLabel(scope.row, item) }}</span>
         </template>
@@ -207,6 +207,11 @@ export default {
           width: '120px'
         });
         this.column.push({
+          label: '当日盈利',
+          prop: 'profitLabel',
+          width: '120px'
+        });
+        this.column.push({
           label: '-',
           prop: 'p0'
         });
@@ -231,6 +236,7 @@ export default {
         levelItem['percent'] = currentData.percent;
         levelItem['p0'] = '';
         levelItem['profit'] = currentData.chg * levelItem.count;
+        levelItem['profitLabel'] = _.floor(currentData.chg * levelItem.count, 2);
         levelItem['lastCloseValue'] = currentData.last_close * levelItem.count;
         for(let i = 0; i < levelItem.list.length; i++){
           levelItem['p' + (2 * i + 1)] = levelItem.list[i];
