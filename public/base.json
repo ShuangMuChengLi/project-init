@@ -1,21 +1,9 @@
 [
   {
-    "name": "五粮液",
-    "code": "000858",
-    "prevCode": "SZ",
-    "type": "消费",
-    "history": [
-      {
-        "count": 100,
-        "value": 167.13
-      }
-    ]
-  },
-  {
     "name": "招商银行",
     "code": "600036",
     "prevCode": "SH",
-    "type": "银行",
+    "type": "金融",
     "history": [
       {
         "count": 400,
@@ -27,7 +15,7 @@
     "name": "中国平安",
     "code": "601318",
     "prevCode": "SH",
-    "type": "保险",
+    "type": "金融",
     "history": [
       {
         "count": 200,
@@ -39,7 +27,7 @@
     "name": "上港集团",
     "code": "600018",
     "prevCode": "SH",
-    "type": "物流",
+    "type": "运输",
     "history": [
       {
         "count": 700,
@@ -67,7 +55,7 @@
     "name": "伊利股份",
     "code": "600887",
     "prevCode": "SH",
-    "type": "消费",
+    "type": "食品",
     "history": [
       {
         "count": 200,
@@ -87,7 +75,7 @@
     "name": "海螺水泥",
     "code": "600585",
     "prevCode": "SH",
-    "type": "房地产、基建",
+    "type": "基建",
     "history": [
       {
         "count": 200,
@@ -107,7 +95,7 @@
     "name": "特变电工",
     "code": "600089",
     "prevCode": "SH",
-    "type": "电力",
+    "type": "新能源",
     "history": [
       {
         "count": 300,
@@ -136,27 +124,10 @@
     ]
   },
   {
-    "name": "三一重工",
-    "code": "600031",
-    "prevCode": "SH",
-    "base": 33.18,
-    "type": "房地产、基建",
-    "history": [
-      {
-        "count": 300,
-        "value": 16.32
-      },
-      {
-        "count": 0,
-        "value": 5058
-      }
-    ]
-  },
-  {
     "name": "HS300ETF",
     "code": "510310",
     "prevCode": "SH",
-    "type": "宽基",
+    "type": "宽基ETF",
     "history": [
       {
         "count": 2800,
@@ -172,8 +143,12 @@
     "name": "通威股份",
     "code": "600438",
     "prevCode": "SH",
-    "type": "光伏、饲料",
+    "type": "新能源",
     "history": [
+      {
+        "count": 200,
+        "value": 39.2
+      },
       {
         "count": 100,
         "value": 47.59
@@ -185,14 +160,170 @@
     ]
   },
   {
-    "name": "陕西煤业",
-    "code": "601225",
+    "name": "交运ETF",
+    "code": "159662",
+    "prevCode": "SZ",
+    "type": "运输",
+    "history": [
+      {
+        "count": 4200,
+        "value": 1.03
+      }
+    ]
+  },
+  {
+    "name": "上海机场",
+    "code": "600009",
     "prevCode": "SH",
-    "type": "煤炭",
+    "type": "运输",
+    "history": [
+      {
+        "count": 100,
+        "value": 58.57
+      }
+    ]
+  },
+  {
+    "name": "亿利洁能",
+    "code": "600277",
+    "prevCode": "SH",
+    "type": "化工",
+    "history": [
+      {
+        "count": 100,
+        "value": 4.01
+      }
+    ]
+  },
+  {
+    "name": "银行ETF",
+    "code": "515290",
+    "prevCode": "SH",
+    "type": "金融",
+    "history": [
+      {
+        "count": 3700,
+        "value": 0.989
+      }
+    ]
+  },
+  {
+    "name": "中国核电",
+    "code": "601985",
+    "prevCode": "SH",
+    "type": "电力",
+    "history": [
+      {
+        "count": 800,
+        "value": 6
+      }
+    ]
+  },
+  {
+    "name": "大秦铁路",
+    "code": "601006",
+    "prevCode": "SH",
+    "type": "运输",
+    "history": [
+      {
+        "count": 700,
+        "value": 6.68
+      }
+    ]
+  },
+  {
+    "name": "科创50",
+    "code": "588080",
+    "prevCode": "SH",
+    "type": "宽基ETF",
+    "history": [
+      {
+        "count": 12600,
+        "value": 1.024
+      }
+    ]
+  },
+  {
+    "name": "光伏龙头",
+    "code": "159609",
+    "prevCode": "SZ",
+    "type": "新能源",
+    "history": [
+      {
+        "count": 12500,
+        "value": 0.817
+      }
+    ]
+  },
+  {
+    "name": "医药ETF",
+    "code": "512010",
+    "prevCode": "SH",
+    "type": "医药",
+    "history": [
+      {
+        "count": 20000,
+        "value": 0.492
+      }
+    ]
+  },
+  {
+    "name": "新和成",
+    "code": "002001",
+    "prevCode": "SZ",
+    "type": "医药",
+    "history": [
+      {
+        "count": 500,
+        "value": 18.88
+      }
+    ]
+  },
+  {
+    "name": "杉杉股份",
+    "code": "600884",
+    "prevCode": "SH",
+    "type": "新能源",
+    "history": [
+      {
+        "count": 500,
+        "value": 18.04
+      }
+    ]
+  },
+  {
+    "name": "安琪酵母",
+    "code": "600298",
+    "prevCode": "SH",
+    "type": "食品",
+    "history": [
+      {
+        "count": 100,
+        "value": 40.09
+      }
+    ]
+  },
+  {
+    "name": "保利发展",
+    "code": "600048",
+    "prevCode": "SH",
+    "type": "房地产",
+    "history": [
+      {
+        "count": 400,
+        "value": 14.663
+      }
+    ]
+  },
+  {
+    "name": "明阳智能",
+    "code": "601615",
+    "prevCode": "SH",
+    "type": "新能源",
     "history": [
       {
         "count": 200,
-        "value": 18.9
+        "value": 24.625
       }
     ]
   }

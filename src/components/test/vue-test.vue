@@ -40,28 +40,74 @@
       id="chart"
       class="chart"
     />
-    <el-table
+    <div
       v-if="!isHide"
-      :data="tableData"
-      style="width: 100%"
+      class="table-wrapper"
     >
-      <el-table-column
-        v-for="(item) in column"
-        :key="Math.random() + item.prop"
-        :label="item.label"
-        :width="item.width || '120px'"
+      <el-table
+        :data="tableData"
+        :cell-style="{height: '20px', padding: '3px 0'}"
       >
-        <template slot-scope="scope">
-          <span
-            :class="{
-              current: getCurrent(scope.row, item),
-              red: scope.row.percent > 0 && (['percentLabel', 'profitLabel'].includes(item.prop)),
-              green: scope.row.percent < 0 && (['percentLabel', 'profitLabel'].includes(item.prop)),
-            }"
-          >{{ getLabel(scope.row, item) }}</span>
-        </template>
-      </el-table-column>
-    </el-table>
+        <el-table-column
+          v-for="(item) in column"
+          :key="Math.random() + item.prop"
+          :label="item.label"
+          :width="item.width || '120px'"
+        >
+          <template
+            slot-scope="scope"
+          >
+            <span
+              :class="getRowItemClass(scope.row, item)"
+            >{{ getLabel(scope.row, item) }}</span>
+          </template>
+        </el-table-column>
+      </el-table>
+
+      <el-table
+        :data="totalList"
+        :cell-style="{height: '20px', padding: '3px 0'}"
+      >
+        <el-table-column
+          label="行业"
+          :width="'120px'"
+          prop="type"
+        />
+        <el-table-column
+          label="持仓"
+          :width="'120px'"
+          prop="total"
+        />
+        <el-table-column
+          label="当日盈亏"
+          :width="'120px'"
+          prop="profit"
+        >
+          <template slot-scope="scope">
+            <span
+              :class="{
+                red: scope.row.profit > 0,
+                green: scope.row.profit < 0,
+              }"
+            >{{ scope.row.profit }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="涨跌幅"
+          :width="'120px'"
+          prop="percentLabel"
+        >
+          <template slot-scope="scope">
+            <span
+              :class="{
+                red: scope.row.profit > 0,
+                green: scope.row.profit < 0,
+              }"
+            >{{ scope.row.percentLabel }}</span>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
   </div>
 </template>
 
@@ -70,7 +116,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import moment from 'moment';
 import * as echarts from 'echarts';
-import {storageUtil} from '../../js/tools/storage-util/storage-util';
+
 export default {
   name: 'VueTest',
   data () {
@@ -80,11 +126,11 @@ export default {
       tableData: [],
       column: [],
       levelList: [],
+      totalList: [],
       second: 5,
       timer: null,
       next: 0,
-      levels: 4,
-      step: 15,
+      step: 20,
       profit: 0,
       line: [],
       lineX: [],
@@ -113,12 +159,19 @@ export default {
     this.line = await axios.get('http://localhost:3000/data?name=' + moment().format('YYYY-MM-DD')).then((res)=>{
       return res.data.data;
     }).catch(err=>false) || [];
-    await this.baseToLevel();
+    await this.getBaseData();
 
     await this.init();
     this.setTimer();
   },
   methods: {
+    getRowItemClass(row, item){
+      return {
+        red: row.percent > 0 && (['percentLabel', 'profitLabel', 'current'].includes(item.prop))
+        || item.prop === 'marginPrice' && row.marginPrice > row.current && row.total < 15000,
+        green: row.percent < 0 && (['percentLabel', 'profitLabel', 'current'].includes(item.prop)),
+      };
+    },
     hide(){
       this.isHide = !this.isHide;
     },
@@ -212,50 +265,69 @@ export default {
           width: '120px'
         });
         this.column.push({
-          label: '-',
-          prop: 'p0'
+          label: '现价',
+          prop: 'current',
+          width: '120px'
         });
-        for(let i = 0; i < this.levelList[0].list.length; i++){
-          this.column.push({
-            label: -this.levels * this.step + this.step * i + '%',
-            prop: 'p' + (2 * i + 1)
-          });
-          this.column.push({
-            label: '-',
-            prop: 'p' + (2 * i + 2)
-          });
-        }
+        this.column.push({
+          label: '待补仓价',
+          prop: 'marginPrice',
+          width: '120px'
+        });
+        this.column.push({
+          label: '持仓',
+          prop: 'total',
+          width: '120px'
+        });
+        this.column.push({
+          label: '行业',
+          prop: 'type',
+          width: '120px'
+        });
       }
 
+      let typeSet = {};
       for(let levelItem of this.levelList){
         let currentData = _.find(data, {symbol: levelItem.code});
         if(!currentData)continue;
 
-        let setCurrentEnd = false;
+        levelItem.count = _.reduce(levelItem.history, function(sum, n) {
+          return sum + n.count;
+        }, 0);
+        levelItem['marginPrice'] = _.floor(levelItem.history[0].value * 0.8, 2);
         levelItem['percentLabel'] = currentData.percent + '%';
         levelItem['percent'] = currentData.percent;
-        levelItem['p0'] = '';
+        levelItem['type'] = levelItem.type;
+        levelItem['current'] = currentData.current;
         levelItem['profit'] = currentData.chg * levelItem.count;
         levelItem['profitLabel'] = _.floor(currentData.chg * levelItem.count, 2);
         levelItem['lastCloseValue'] = currentData.last_close * levelItem.count;
-        for(let i = 0; i < levelItem.list.length; i++){
-          levelItem['p' + (2 * i + 1)] = levelItem.list[i];
-          if(currentData.current < levelItem.list[i + 1] && !setCurrentEnd){
-            setCurrentEnd = true;
-            levelItem['p' + (2 * i + 2)] = currentData.current;
-          }else{
-            levelItem['p' + (2 * i + 2)] = '';
-          }
-        }
-        if(currentData.current < levelItem.alarmValue && levelItem.current > levelItem.alarmValue){
-          levelItem.alarm = true;
+        levelItem['total'] = _.floor(currentData.current * levelItem.count);
+        if(typeSet[levelItem.type]){
+          typeSet[levelItem.type].total += levelItem['total'];
+          typeSet[levelItem.type].profit += levelItem['profit'];
+        }else{
+          typeSet[levelItem.type] = {
+            total: levelItem['total'],
+            profit: levelItem['profit'],
+          };
         }
       }
-      this.tableData = _.orderBy(this.levelList, ['percent'], ['desc']);
+      let totalList = [];
+      for(let type in typeSet){
+        totalList.push({
+          type: type,
+          total: _.floor(typeSet[type].total),
+          profit: _.floor(typeSet[type].profit),
+          percentLabel: _.floor(typeSet[type].profit / typeSet[type].total * 100, 2) + '%',
+        });
+      }
+      this.totalList = totalList.sort((a, b)=>b.profit - a.profit);
+      this.tableData = _.orderBy(this.levelList, ['profit'], ['desc']);
 
-      this.profit = _.reduce(this.levelList, function(sum, n) {
+      this.profit = _.floor(_.reduce(this.levelList, function(sum, n) {
         return sum + n.profit;
-      }, 0);
+      }, 0));
       let lastCloseValue = _.reduce(this.levelList, function(sum, n) {
         return sum + n.lastCloseValue;
       }, 0);
@@ -275,63 +347,17 @@ export default {
         this.initChart(this.line);
       }
     },
-    async baseToLevel(){
-      let base = await axios.get('./base.json')
-        .then((res)=>{
+    async getBaseData(){
+      this.levelList = await axios.get('./base.json')
+        .then((res) => {
           return (res.data);
         })
-        .catch((e)=>{console.error(e);});
-
-      let rate = this.step * 0.01;
-      let fn = (value)=>{
-        let levelList = [];
-        let d = value * rate;
-        for(let i = -this.levels; i <= this.levels; i++){
-          levelList.push(_.ceil(value + d * i, 2));
-        }
-        return levelList;
-      };
-      let getPosition = (value, levelList)=>{
-        let position = 0;
-        let prev = null;
-        for(let i = 0; i < levelList.length; i++){
-          let level = levelList[i];
-          let d = Math.abs(value - level);
-          if(prev === null){
-            prev = d;
-            continue;
-          }
-
-          if(d <= prev){
-            prev = d;
-            position = i;
-          }
-        }
-        return position;
-      };
-      let result = [];
-      for(let item of base){
-        let levelList = fn(item.base || _.last(item.history).value);
-        let position = getPosition(item.history[0].value, levelList);
-        result.push({
-          ...item,
-          name: `${item.name}`,
-          current: levelList[position],
-          currentCount: item.history[0].count,
-          list: levelList,
-          count: _.reduce(item.history, function(sum, n) {
-            return sum + n.count;
-          }, 0)
+        .catch((e) => {
+          console.error(e);
         });
-      }
-      this.levelList = result;
     },
     getLabel(row, item){
-      if(row.current === row[item.prop]){
-        return `${row[item.prop]} / ${row.currentCount}`;
-      }else{
-        return `${row[item.prop]}`;
-      }
+      return `${row[item.prop]}`;
     },
     getCurrent(row, item){
       return row.current === row[item.prop];
