@@ -46,7 +46,7 @@
     >
       <el-table
         :data="tableData"
-        :cell-style="{height: '20px', padding: '3px 0'}"
+        :cell-style="{height: '20px', padding: '6px 0'}"
       >
         <el-table-column
           v-for="(item) in column"
@@ -66,7 +66,8 @@
 
       <el-table
         :data="totalList"
-        :cell-style="{height: '20px', padding: '3px 0'}"
+        class="left-table"
+        :cell-style="{height: '20px', padding: '6px 0'}"
       >
         <el-table-column
           label="行业"
@@ -168,7 +169,7 @@ export default {
     getRowItemClass(row, item){
       return {
         red: row.percent > 0 && (['percentLabel', 'profitLabel', 'current'].includes(item.prop))
-        || item.prop === 'marginPrice' && row.marginPrice > row.current && row.total < 15000,
+        || item.prop === 'marginPrice' && row.marginPrice > row.current && row.total < 10000,
         green: row.percent < 0 && (['percentLabel', 'profitLabel', 'current'].includes(item.prop)),
       };
     },
@@ -275,6 +276,11 @@ export default {
           width: '120px'
         });
         this.column.push({
+          label: '止盈价',
+          prop: 'stopProfitPrice',
+          width: '120px'
+        });
+        this.column.push({
           label: '持仓',
           prop: 'total',
           width: '120px'
@@ -294,7 +300,8 @@ export default {
         levelItem.count = _.reduce(levelItem.history, function(sum, n) {
           return sum + n.count;
         }, 0);
-        levelItem['marginPrice'] = _.floor(levelItem.history[0].value * 0.8, 2);
+        levelItem['marginPrice'] = levelItem.marginPrice || _.floor(levelItem.history[0].value * 0.8, 2);
+        levelItem['stopProfitPrice'] = levelItem.stopProfitPrice || _.floor(levelItem.history[0].value * 1.2, 2);
         levelItem['percentLabel'] = currentData.percent + '%';
         levelItem['percent'] = currentData.percent;
         levelItem['type'] = levelItem.type;

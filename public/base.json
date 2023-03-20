@@ -4,6 +4,7 @@
     "code": "600036",
     "prevCode": "SH",
     "type": "金融",
+    "marginPrice": 26,
     "history": [
       {
         "count": 400,
@@ -16,6 +17,7 @@
     "code": "601318",
     "prevCode": "SH",
     "type": "金融",
+    "marginPrice": 35,
     "history": [
       {
         "count": 200,
@@ -44,6 +46,7 @@
     "code": "000333",
     "prevCode": "SZ",
     "type": "家电",
+    "marginPrice": 41,
     "history": [
       {
         "count": 200,
@@ -202,6 +205,10 @@
     "type": "金融",
     "history": [
       {
+        "count": 5000,
+        "value": 0.94
+      },
+      {
         "count": 3700,
         "value": 0.989
       }
@@ -261,6 +268,10 @@
     "prevCode": "SH",
     "type": "医药",
     "history": [
+      {
+        "count": 10000,
+        "value": 0.461
+      },
       {
         "count": 20000,
         "value": 0.492
@@ -323,7 +334,71 @@
     "history": [
       {
         "count": 200,
+        "value": 22
+      },
+      {
+        "count": 200,
         "value": 24.625
+      }
+    ]
+  },
+  {
+    "name": "五粮液",
+    "code": "000858",
+    "prevCode": "SZ",
+    "type": "食品",
+    "history": [
+      {
+        "count": 0,
+        "value": 200
+      }
+    ]
+  },
+  {
+    "name": "H股ETF",
+    "code": "510900",
+    "prevCode": "SH",
+    "type": "宽基ETF",
+    "history": [
+      {
+        "count": 10200,
+        "value": 0.775
+      }
+    ]
+  },
+  {
+    "name": "新汽车ETF",
+    "code": "515030",
+    "prevCode": "SH",
+    "type": "新能源车",
+    "history": [
+      {
+        "count": 3300,
+        "value": 1.566
+      }
+    ]
+  },
+  {
+    "name": "半导体ETF",
+    "code": "515030",
+    "prevCode": "SH",
+    "type": "半导体",
+    "history": [
+      {
+        "count": 8600,
+        "value": 0.92
+      }
+    ]
+  },
+  {
+    "name": "特锐德",
+    "code": "300001",
+    "prevCode": "SZ",
+    "type": "新能源车",
+    "history": [
+      {
+        "count": 300,
+        "value": 16.65
       }
     ]
   }
