@@ -10,6 +10,9 @@ export default {
   name: 'App',
   components: {
 
+  },
+  mounted(){
+    console.log('app mounted');
   }
 };
 </script>

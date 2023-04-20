@@ -46,7 +46,8 @@
     >
       <el-table
         :data="tableData"
-        :cell-style="{height: '20px', padding: '6px 0'}"
+        :cell-style="{height: '20px', padding: '1px 0'}"
+        class="left-table"
       >
         <el-table-column
           v-for="(item) in column"
@@ -66,8 +67,8 @@
 
       <el-table
         :data="totalList"
-        class="left-table"
-        :cell-style="{height: '20px', padding: '6px 0'}"
+        class="right-table"
+        :cell-style="{height: '20px', padding: '5px 0'}"
       >
         <el-table-column
           label="行业"
@@ -147,15 +148,17 @@ export default {
         moment().set('hour', 9).set('minute', 25).set('second', 0),
       ) || this.now.isBetween(
         moment().set('hour', 9).set('minute', 30).set('second', 0),
-        moment().set('hour', 11).set('minute', 30).set('second', 0),
+        moment().set('hour', 11).set('minute', 35).set('second', 0),
       ) ||
         this.now.isBetween(
           moment().set('hour', 13).set('minute', 0).set('second', 0),
-          moment().set('hour', 15).set('minute', 0).set('second', 0),
+          moment().set('hour', 15).set('minute', 5).set('second', 0),
         ));
     }
   },
   async mounted () {
+    var object = { 'a': [{ 'b': { 'c': 3 } }] };
+    console.log(_.get(object, 'a[0].b.c'));
     this.now = moment();
     this.line = await axios.get('http://localhost:3000/data?name=' + moment().format('YYYY-MM-DD')).then((res)=>{
       return res.data.data;
@@ -169,7 +172,9 @@ export default {
     getRowItemClass(row, item){
       return {
         red: row.percent > 0 && (['percentLabel', 'profitLabel', 'current'].includes(item.prop))
-        || item.prop === 'marginPrice' && row.marginPrice > row.current && row.total < 10000,
+        || item.prop === 'marginPrice' && row.marginPrice > row.current
+        || item.prop === 'target' && row.target < row.current
+        || item.prop === 'stopProfitPrice' && row.stopProfitPrice < row.current,
         green: row.percent < 0 && (['percentLabel', 'profitLabel', 'current'].includes(item.prop)),
       };
     },
@@ -281,6 +286,11 @@ export default {
           width: '120px'
         });
         this.column.push({
+          label: '目标价',
+          prop: 'target',
+          width: '120px'
+        });
+        this.column.push({
           label: '持仓',
           prop: 'total',
           width: '120px'
@@ -305,6 +315,7 @@ export default {
         levelItem['percentLabel'] = currentData.percent + '%';
         levelItem['percent'] = currentData.percent;
         levelItem['type'] = levelItem.type;
+        levelItem['target'] = levelItem.target || '';
         levelItem['current'] = currentData.current;
         levelItem['profit'] = currentData.chg * levelItem.count;
         levelItem['profitLabel'] = _.floor(currentData.chg * levelItem.count, 2);
