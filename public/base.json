@@ -23,6 +23,14 @@
     "type": "金融",
     "history": [
       {
+        "count": -100,
+        "value": 42.04
+      },
+      {
+        "count": 100,
+        "value": 44.22
+      },
+      {
         "count": 200,
         "value": 61.627
       }
@@ -53,7 +61,19 @@
     "type": "家电",
     "history": [
       {
-        "count": 200,
+        "count": -100,
+        "value": 53.65
+      },
+      {
+        "count": 100,
+        "value": 44.47
+      },
+      {
+        "count": 100,
+        "value": 59.33
+      },
+      {
+        "count": 100,
         "value": 88.56
       }
     ],
@@ -312,6 +332,10 @@
     "type": "医药",
     "history": [
       {
+        "count": -400,
+        "value": 16.77
+      },
+      {
         "count": 500,
         "value": 18.88
       }
@@ -418,6 +442,10 @@
     "prevCode": "SZ",
     "type": "新能源车",
     "history": [
+      {
+        "count": 100,
+        "value": 18.57
+      },
       {
         "count": -200,
         "value": 20.75
@@ -592,10 +620,49 @@
     "type": "新能源车",
     "history": [
       {
-        "count": 100,
-        "value": 393.2
+        "count": 180,
+        "value": 217.084
       }
     ],
-    "target": 606.06
+    "target": 250
+  },
+  {
+    "name": "国防ETF",
+    "code": "512670",
+    "prevCode": "SH",
+    "type": "军工",
+    "history": [
+      {
+        "count": 8400,
+        "value": 0.796
+      }
+    ],
+    "target": 1
+  },
+  {
+    "name": "药明康德",
+    "code": "603259",
+    "prevCode": "SH",
+    "type": "医药",
+    "history": [
+      {
+        "count": 100,
+        "value": 69.26
+      }
+    ],
+    "target": 100
+  },
+  {
+    "name": "山路转债",
+    "code": "127083",
+    "prevCode": "SZ",
+    "type": "基建",
+    "history": [
+      {
+        "count": 10,
+        "value": 100
+      }
+    ],
+    "target": 140
   }
 ]

@@ -219,16 +219,25 @@ export default {
         yAxis: {
           type: 'value'
         },
+        tooltip: {
+          trigger: 'axis',
+          // axisPointer: {
+          //   type: 'cross',
+          //   label: {
+          //     backgroundColor: '#6a7985'
+          //   }
+          // }
+        },
         series: [
           {
-            name: 'a1',
+            name: '收益',
             data: data.map(item=>item.profit),
             showSymbol: false,
             type: 'line',
             smooth: true
           },
           {
-            name: 'a2',
+            name: '沪深300',
             data: data.map(item=>{
               return item.baseProfit || 0;
             }),
@@ -351,7 +360,7 @@ export default {
       }, 0);
       this.percentage = _.ceil(this.profit / lastCloseValue * 100, 2) + '%';
       if(this.isOpen){
-        let baseProfit = (_.find(data, {symbol: '510310'})?.percent || 0) / 100 * lastCloseValue;
+        let baseProfit = _.floor((_.find(data, {symbol: '510310'})?.percent || 0) / 100 * lastCloseValue);
         this.line.push({
           profit: this.profit,
           baseProfit: baseProfit,
