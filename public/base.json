@@ -14,7 +14,7 @@
         "value": 62.87
       }
     ],
-    "target": 49.065
+    "target": 51.195
   },
   {
     "name": "中国平安",
@@ -22,6 +22,10 @@
     "prevCode": "SH",
     "type": "金融",
     "history": [
+      {
+        "count": -100,
+        "value": 50.26
+      },
       {
         "count": -100,
         "value": 42.04
@@ -35,7 +39,7 @@
         "value": 61.627
       }
     ],
-    "target": 79.849
+    "target": 85.034
   },
   {
     "name": "上港集团",
@@ -52,7 +56,7 @@
         "value": 6.16
       }
     ],
-    "target": 9.64
+    "target": 9.94
   },
   {
     "name": "美的集团",
@@ -77,7 +81,7 @@
         "value": 88.56
       }
     ],
-    "target": 79.56
+    "target": 86.76
   },
   {
     "name": "伊利股份",
@@ -102,28 +106,7 @@
         "value": 38.91
       }
     ],
-    "target": 45
-  },
-  {
-    "name": "海螺水泥",
-    "code": "600585",
-    "prevCode": "SH",
-    "type": "房地产",
-    "history": [
-      {
-        "count": 200,
-        "value": 31.15
-      },
-      {
-        "count": 200,
-        "value": 37.75
-      },
-      {
-        "count": 100,
-        "value": 40.9
-      }
-    ],
-    "target": 51.975
+    "target": 50.16
   },
   {
     "name": "特变电工",
@@ -144,7 +127,7 @@
         "value": 26.77
       }
     ],
-    "target": 38.67
+    "target": 45.78
   },
   {
     "name": "长江电力",
@@ -157,7 +140,7 @@
         "value": 23.33
       }
     ],
-    "target": 24.12
+    "target": 23.43
   },
   {
     "name": "HS300ETF",
@@ -195,7 +178,7 @@
         "value": 53.95
       }
     ],
-    "target": 60.8
+    "target": 74.9
   },
   {
     "name": "交运ETF",
@@ -221,7 +204,7 @@
         "value": 58.57
       }
     ],
-    "target": 65.24
+    "target": 63.52
   },
   {
     "name": "亿利洁能",
@@ -263,7 +246,7 @@
         "value": 6
       }
     ],
-    "target": 8.68
+    "target": 9.1
   },
   {
     "name": "大秦铁路",
@@ -276,7 +259,7 @@
         "value": 6.68
       }
     ],
-    "target": 10.08
+    "target": 10.392
   },
   {
     "name": "科创50",
@@ -284,6 +267,10 @@
     "prevCode": "SH",
     "type": "宽基ETF",
     "history": [
+      {
+        "count": 7200,
+        "value": 1.099
+      },
       {
         "count": -6300,
         "value": 1.146
@@ -340,7 +327,7 @@
         "value": 18.88
       }
     ],
-    "target": 22.32
+    "target": 23.52
   },
   {
     "name": "安琪酵母",
@@ -353,20 +340,7 @@
         "value": 40.09
       }
     ],
-    "target": 53.25
-  },
-  {
-    "name": "保利发展",
-    "code": "600048",
-    "prevCode": "SH",
-    "type": "房地产",
-    "history": [
-      {
-        "count": 400,
-        "value": 14.663
-      }
-    ],
-    "target": 21.896
+    "target": 55.45
   },
   {
     "name": "明阳智能",
@@ -383,7 +357,7 @@
         "value": 24.625
       }
     ],
-    "target": 31.025
+    "target": 30.7
   },
   {
     "name": "H股ETF",
@@ -455,7 +429,7 @@
         "value": 16.65
       }
     ],
-    "target": 29.04
+    "target": 29.136
   },
   {
     "name": "券商ETF",
@@ -507,7 +481,7 @@
         "value": 53.36
       }
     ],
-    "target": 64.02
+    "target": 69.06
   },
   {
     "name": "中概互联",
@@ -515,6 +489,10 @@
     "prevCode": "SH",
     "type": "互联网",
     "history": [
+      {
+        "count": 5600,
+        "value": 1.005
+      },
       {
         "count": 4900,
         "value": 1.097
@@ -549,19 +527,6 @@
     "target": 0.8
   },
   {
-    "name": "地产ETF",
-    "code": "512200",
-    "prevCode": "SH",
-    "type": "房地产",
-    "history": [
-      {
-        "count": 9500,
-        "value": 0.681
-      }
-    ],
-    "target": 0.83
-  },
-  {
     "name": "新天然气",
     "code": "603393",
     "prevCode": "SH",
@@ -572,7 +537,7 @@
         "value": 22.7
       }
     ],
-    "target": 30.65
+    "target": 31.6
   },
   {
     "name": "三峡能源",
@@ -585,7 +550,7 @@
         "value": 5.52
       }
     ],
-    "target": 6.625
+    "target": 6.925
   },
   {
     "name": "福耀玻璃",
@@ -598,7 +563,7 @@
         "value": 33.8
       }
     ],
-    "target": 44.44
+    "target": 45.68
   },
   {
     "name": "五粮液",
@@ -608,10 +573,14 @@
     "history": [
       {
         "count": 100,
+        "value": 168.49
+      },
+      {
+        "count": 100,
         "value": 181
       }
     ],
-    "target": 221.2
+    "target": 260.88
   },
   {
     "name": "宁德时代",
@@ -624,7 +593,7 @@
         "value": 217.084
       }
     ],
-    "target": 250
+    "target": 692.37
   },
   {
     "name": "国防ETF",
@@ -650,7 +619,7 @@
         "value": 69.26
       }
     ],
-    "target": 100
+    "target": 133.36
   },
   {
     "name": "山路转债",
