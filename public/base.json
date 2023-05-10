@@ -149,6 +149,14 @@
     "type": "宽基ETF",
     "history": [
       {
+        "count": 6000,
+        "value": 1.902
+      },
+      {
+        "count": 10400,
+        "value": 1.907
+      },
+      {
         "count": 2800,
         "value": 1.73
       },
@@ -391,6 +399,10 @@
     "prevCode": "SH",
     "type": "半导体",
     "history": [
+      {
+        "count": 2700,
+        "value": 0.925
+      },
       {
         "count": -3500,
         "value": 1.046

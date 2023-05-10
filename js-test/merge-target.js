@@ -22,10 +22,10 @@ async function main(){
     }
 
     let baseItem = _.find(base, {code: item[1]});
-    console.log(baseItem, item[1]);
-    baseItem.target = item[8];
+    baseItem.target = item[9];
   }
   fs.writeFileSync(path.resolve(__dirname, '../public/base.json'), JSON.stringify(base, '', 2));
+  fs.writeFileSync(path.resolve(__dirname, '../dist/base.json'), JSON.stringify(base, '', 2));
 }
 // File path.
 main();
