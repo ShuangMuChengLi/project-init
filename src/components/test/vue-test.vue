@@ -52,7 +52,7 @@
       >
         <el-table-column
           v-for="(item) in column"
-          :key="Math.random() + item.prop"
+          :key="item.prop"
           :label="item.label"
           :width="item.width || '120px'"
           :prop="item.prop"
