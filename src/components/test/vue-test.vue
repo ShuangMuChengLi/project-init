@@ -48,12 +48,15 @@
         :data="tableData"
         :cell-style="{height: '20px', padding: '1px 0'}"
         class="left-table"
+        :default-sort="{prop: 'percentLabel', order: 'descending'}"
       >
         <el-table-column
           v-for="(item) in column"
           :key="Math.random() + item.prop"
           :label="item.label"
           :width="item.width || '120px'"
+          :prop="item.prop"
+          sortable
         >
           <template
             slot-scope="scope"
@@ -69,6 +72,7 @@
         :data="totalList"
         class="right-table"
         :cell-style="{height: '20px', padding: '5px 0'}"
+        :default-sort="{prop: 'percentLabel', order: 'descending'}"
       >
         <el-table-column
           label="行业"
@@ -79,11 +83,19 @@
           label="持仓"
           :width="'120px'"
           prop="total"
+          sortable
+        />
+        <el-table-column
+          label="仓位%"
+          :width="'120px'"
+          prop="accountPercentage"
+          sortable
         />
         <el-table-column
           label="当日盈亏"
           :width="'120px'"
           prop="profit"
+          sortable
         >
           <template slot-scope="scope">
             <span
@@ -98,6 +110,7 @@
           label="涨跌幅"
           :width="'120px'"
           prop="percentLabel"
+          sortable
         >
           <template slot-scope="scope">
             <span
@@ -138,7 +151,8 @@ export default {
       lineX: [],
       myChart: null,
       now: null,
-      percentage: null
+      percentage: null,
+      totalValue: 0
     };
   },
   computed:{
@@ -157,8 +171,6 @@ export default {
     }
   },
   async mounted () {
-    var object = { 'a': [{ 'b': { 'c': 3 } }] };
-    console.log(_.get(object, 'a[0].b.c'));
     this.now = moment();
     this.line = await axios.get('http://localhost:3000/data?name=' + moment().format('YYYY-MM-DD')).then((res)=>{
       return res.data.data;
@@ -305,23 +317,38 @@ export default {
           width: '120px'
         });
         this.column.push({
+          label: '仓位%',
+          prop: 'accountPercentage',
+          width: '120px'
+        });
+        this.column.push({
+          label: '上涨空间%',
+          prop: 'space',
+          width: '120px'
+        });
+        this.column.push({
           label: '行业',
           prop: 'type',
           width: '120px'
         });
       }
-
+      for(let levelItem of this.levelList){
+        levelItem.count = _.reduce(levelItem.history, function(sum, n) {
+          return sum + n.count;
+        }, 0);
+      }
+      this.totalValue = _.reduce(this.levelList, (sum, n)=> {
+        let currentData = _.find(data, {symbol: n.code});
+        return sum + _.floor(currentData.current * n.count);
+      }, 0);
       let typeSet = {};
       for(let levelItem of this.levelList){
         let currentData = _.find(data, {symbol: levelItem.code});
         if(!currentData)continue;
 
-        levelItem.count = _.reduce(levelItem.history, function(sum, n) {
-          return sum + n.count;
-        }, 0);
         levelItem['marginPrice'] = levelItem.marginPrice || _.floor(levelItem.history[0].value * 0.8, 2);
         levelItem['stopProfitPrice'] = levelItem.stopProfitPrice || _.floor(levelItem.history[0].value * 1.2, 2);
-        levelItem['percentLabel'] = currentData.percent + '%';
+        levelItem['percentLabel'] = currentData.percent;
         levelItem['percent'] = currentData.percent;
         levelItem['type'] = levelItem.type;
         levelItem['target'] = levelItem.target || '';
@@ -330,6 +357,8 @@ export default {
         levelItem['profitLabel'] = _.floor(currentData.chg * levelItem.count, 2);
         levelItem['lastCloseValue'] = currentData.last_close * levelItem.count;
         levelItem['total'] = _.floor(currentData.current * levelItem.count);
+        levelItem['accountPercentage'] = _.floor(levelItem['total'] / this.totalValue * 100, 2);
+        levelItem['space'] = _.floor( (levelItem['target'] - levelItem['current']) / levelItem['current'] * 100, 2);
         if(typeSet[levelItem.type]){
           typeSet[levelItem.type].total += levelItem['total'];
           typeSet[levelItem.type].profit += levelItem['profit'];
@@ -342,15 +371,18 @@ export default {
       }
       let totalList = [];
       for(let type in typeSet){
+        let total = _.floor(typeSet[type].total);
         totalList.push({
           type: type,
-          total: _.floor(typeSet[type].total),
+          total: total,
           profit: _.floor(typeSet[type].profit),
-          percentLabel: _.floor(typeSet[type].profit / typeSet[type].total * 100, 2) + '%',
+          // levelItem['accountPercentage'] = _.floor(levelItem['total'] / totalValue * 100, 2);
+          accountPercentage: _.floor(total / this.totalValue * 100, 2),
+          percentLabel: _.floor(typeSet[type].profit / typeSet[type].total * 100, 2),
         });
       }
       this.totalList = totalList.sort((a, b)=>b.profit - a.profit);
-      this.tableData = _.orderBy(this.levelList, ['profit'], ['desc']);
+      this.tableData = this.levelList;
 
       this.profit = _.floor(_.reduce(this.levelList, function(sum, n) {
         return sum + n.profit;

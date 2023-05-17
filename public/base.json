@@ -17,48 +17,6 @@
     "target": 51.195
   },
   {
-    "name": "中国平安",
-    "code": "601318",
-    "prevCode": "SH",
-    "type": "金融",
-    "history": [
-      {
-        "count": -100,
-        "value": 50.26
-      },
-      {
-        "count": -100,
-        "value": 42.04
-      },
-      {
-        "count": 100,
-        "value": 44.22
-      },
-      {
-        "count": 200,
-        "value": 61.627
-      }
-    ],
-    "target": 85.034
-  },
-  {
-    "name": "上港集团",
-    "code": "600018",
-    "prevCode": "SH",
-    "type": "运输",
-    "history": [
-      {
-        "count": 700,
-        "value": 5.32
-      },
-      {
-        "count": 1900,
-        "value": 6.16
-      }
-    ],
-    "target": 9.94
-  },
-  {
     "name": "美的集团",
     "code": "000333",
     "prevCode": "SZ",
@@ -130,19 +88,6 @@
     "target": 45.78
   },
   {
-    "name": "长江电力",
-    "code": "600900",
-    "prevCode": "SH",
-    "type": "电力",
-    "history": [
-      {
-        "count": 300,
-        "value": 23.33
-      }
-    ],
-    "target": 23.43
-  },
-  {
     "name": "HS300ETF",
     "code": "510310",
     "prevCode": "SH",
@@ -193,61 +138,6 @@
     "target": 74.9
   },
   {
-    "name": "交运ETF",
-    "code": "159662",
-    "prevCode": "SZ",
-    "type": "运输",
-    "history": [
-      {
-        "count": 4200,
-        "value": 1.03
-      }
-    ],
-    "target": 1.207
-  },
-  {
-    "name": "上海机场",
-    "code": "600009",
-    "prevCode": "SH",
-    "type": "运输",
-    "history": [
-      {
-        "count": 100,
-        "value": 58.57
-      }
-    ],
-    "target": 63.52
-  },
-  {
-    "name": "亿利洁能",
-    "code": "600277",
-    "prevCode": "SH",
-    "type": "化工",
-    "history": [
-      {
-        "count": 100,
-        "value": 4.01
-      }
-    ]
-  },
-  {
-    "name": "银行ETF",
-    "code": "515290",
-    "prevCode": "SH",
-    "type": "金融",
-    "history": [
-      {
-        "count": 5000,
-        "value": 0.94
-      },
-      {
-        "count": 3700,
-        "value": 0.989
-      }
-    ],
-    "target": 1.493
-  },
-  {
     "name": "中国核电",
     "code": "601985",
     "prevCode": "SH",
@@ -259,19 +149,6 @@
       }
     ],
     "target": 9.1
-  },
-  {
-    "name": "大秦铁路",
-    "code": "601006",
-    "prevCode": "SH",
-    "type": "运输",
-    "history": [
-      {
-        "count": 700,
-        "value": 6.68
-      }
-    ],
-    "target": 10.392
   },
   {
     "name": "科创50",
@@ -322,24 +199,7 @@
         "value": 0.492
       }
     ],
-    "target": 0.454
-  },
-  {
-    "name": "新和成",
-    "code": "002001",
-    "prevCode": "SZ",
-    "type": "医药",
-    "history": [
-      {
-        "count": -400,
-        "value": 16.77
-      },
-      {
-        "count": 500,
-        "value": 18.88
-      }
-    ],
-    "target": 23.52
+    "target": 0.552
   },
   {
     "name": "安琪酵母",
@@ -372,32 +232,6 @@
     "target": 30.7
   },
   {
-    "name": "H股ETF",
-    "code": "510900",
-    "prevCode": "SH",
-    "type": "宽基ETF",
-    "history": [
-      {
-        "count": 10200,
-        "value": 0.775
-      }
-    ],
-    "target": 0.829
-  },
-  {
-    "name": "新汽车ETF",
-    "code": "515030",
-    "prevCode": "SH",
-    "type": "新能源车",
-    "history": [
-      {
-        "count": 3300,
-        "value": 1.566
-      }
-    ],
-    "target": 1.634
-  },
-  {
     "name": "半导体ETF",
     "code": "512480",
     "prevCode": "SH",
@@ -424,41 +258,7 @@
         "value": 0.92
       }
     ],
-    "target": 0.798
-  },
-  {
-    "name": "特锐德",
-    "code": "300001",
-    "prevCode": "SZ",
-    "type": "新能源车",
-    "history": [
-      {
-        "count": 100,
-        "value": 18.57
-      },
-      {
-        "count": -200,
-        "value": 20.75
-      },
-      {
-        "count": 300,
-        "value": 16.65
-      }
-    ],
-    "target": 29.136
-  },
-  {
-    "name": "券商ETF",
-    "code": "159841",
-    "prevCode": "SZ",
-    "type": "金融",
-    "history": [
-      {
-        "count": 6200,
-        "value": 0.817
-      }
-    ],
-    "target": 1.114
+    "target": 1.14
   },
   {
     "name": "创业板50",
@@ -474,47 +274,17 @@
     "target": 1.229
   },
   {
-    "name": "纳斯达克",
-    "code": "159632",
-    "prevCode": "SZ",
-    "type": "宽基ETF",
-    "history": [
-      {
-        "count": 5600,
-        "value": 1.018
-      }
-    ],
-    "target": 1.1
-  },
-  {
     "name": "中航光电",
     "code": "002179",
     "prevCode": "SZ",
     "type": "军工",
     "history": [
       {
-        "count": 100,
-        "value": 53.36
+        "count": 130,
+        "value": 40.662
       }
     ],
-    "target": 69.06
-  },
-  {
-    "name": "中概互联",
-    "code": "513050",
-    "prevCode": "SH",
-    "type": "互联网",
-    "history": [
-      {
-        "count": 5600,
-        "value": 1.005
-      },
-      {
-        "count": 4900,
-        "value": 1.097
-      }
-    ],
-    "target": 1.058
+    "target": 53.1
   },
   {
     "name": "医药50",
@@ -533,27 +303,14 @@
     "name": "新材料ETF",
     "code": "159761",
     "prevCode": "SZ",
-    "type": "化工",
+    "type": "新能源",
     "history": [
       {
         "count": 7900,
         "value": 0.685
       }
     ],
-    "target": 0.617
-  },
-  {
-    "name": "新天然气",
-    "code": "603393",
-    "prevCode": "SH",
-    "type": "天然气",
-    "history": [
-      {
-        "count": 400,
-        "value": 22.7
-      }
-    ],
-    "target": 31.6
+    "target": 0.983
   },
   {
     "name": "三峡能源",
@@ -636,19 +393,6 @@
       }
     ],
     "target": 133.36
-  },
-  {
-    "name": "山路转债",
-    "code": "127083",
-    "prevCode": "SZ",
-    "type": "基建",
-    "history": [
-      {
-        "count": 10,
-        "value": 100
-      }
-    ],
-    "target": 140
   },
   {
     "name": "科创创业",
