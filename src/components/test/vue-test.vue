@@ -54,7 +54,7 @@
           v-for="(item) in column"
           :key="item.prop"
           :label="item.label"
-          :width="item.width || '120px'"
+          :width="item.width"
           :prop="item.prop"
           sortable
         >
@@ -76,24 +76,24 @@
       >
         <el-table-column
           label="行业"
-          :width="'120px'"
+
           prop="type"
         />
         <el-table-column
           label="持仓"
-          :width="'120px'"
+
           prop="total"
           sortable
         />
         <el-table-column
           label="仓位%"
-          :width="'120px'"
+
           prop="accountPercentage"
           sortable
         />
         <el-table-column
           label="当日盈亏"
-          :width="'120px'"
+
           prop="profit"
           sortable
         >
@@ -108,7 +108,7 @@
         </el-table-column>
         <el-table-column
           label="涨跌幅"
-          :width="'120px'"
+
           prop="percentLabel"
           sortable
         >
@@ -279,57 +279,47 @@ export default {
         this.column.push({
           label: '名称',
           prop: 'name',
-          width: '120px'
         });
         this.column.push({
           label: '涨跌幅',
           prop: 'percentLabel',
-          width: '120px'
         });
         this.column.push({
           label: '当日盈利',
           prop: 'profitLabel',
-          width: '120px'
         });
         this.column.push({
           label: '现价',
           prop: 'current',
-          width: '120px'
         });
         this.column.push({
           label: '待补仓价',
           prop: 'marginPrice',
-          width: '120px'
         });
         this.column.push({
           label: '止盈价',
           prop: 'stopProfitPrice',
-          width: '120px'
         });
         this.column.push({
           label: '目标价',
           prop: 'target',
-          width: '120px'
         });
         this.column.push({
           label: '持仓',
           prop: 'total',
-          width: '120px'
         });
         this.column.push({
-          label: '仓位%',
+          label: '仓位',
           prop: 'accountPercentage',
-          width: '120px'
         });
         this.column.push({
-          label: '上涨空间%',
+          label: '上涨空间',
           prop: 'space',
           width: '120px'
         });
         this.column.push({
           label: '行业',
           prop: 'type',
-          width: '120px'
         });
       }
       for(let levelItem of this.levelList){
