@@ -94,6 +94,14 @@
     "type": "宽基ETF",
     "history": [
       {
+        "count": 10700,
+        "value": 1.878
+      },
+      {
+        "count": 16100,
+        "value": 1.873
+      },
+      {
         "count": 23300,
         "value": 1.903
       },
@@ -156,6 +164,10 @@
     "prevCode": "SH",
     "type": "宽基ETF",
     "history": [
+      {
+        "count": 37700,
+        "value": 1.065
+      },
       {
         "count": 7200,
         "value": 1.099
@@ -266,6 +278,10 @@
     "prevCode": "SZ",
     "type": "宽基ETF",
     "history": [
+      {
+        "count": 31300,
+        "value": 0.964
+      },
       {
         "count": 5600,
         "value": 1.008
@@ -406,5 +422,18 @@
       }
     ],
     "target": 0.767
+  },
+  {
+    "name": "上证综指",
+    "code": "510210",
+    "prevCode": "SH",
+    "type": "宽基ETF",
+    "history": [
+      {
+        "count": 20900,
+        "value": 0.964
+      }
+    ],
+    "target": 1.1
   }
 ]

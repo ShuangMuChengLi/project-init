@@ -329,6 +329,10 @@ export default {
       }
       this.totalValue = _.reduce(this.levelList, (sum, n)=> {
         let currentData = _.find(data, {symbol: n.code});
+        if(!currentData){
+          console.log(data, n.code);
+          return sum;
+        }
         return sum + _.floor(currentData.current * n.count);
       }, 0);
       let typeSet = {};
