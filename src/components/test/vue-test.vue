@@ -145,7 +145,7 @@ export default {
       second: 5,
       timer: null,
       next: 0,
-      step: 20,
+      step: 2,
       profit: 0,
       line: [],
       lineX: [],
@@ -340,8 +340,8 @@ export default {
         let currentData = _.find(data, {symbol: levelItem.code});
         if(!currentData)continue;
 
-        levelItem['marginPrice'] = levelItem.marginPrice || _.floor(levelItem.history[0].value * 0.8, 2);
-        levelItem['stopProfitPrice'] = levelItem.stopProfitPrice || _.floor(levelItem.history[0].value * 1.2, 2);
+        levelItem['marginPrice'] = levelItem.marginPrice || _.floor(levelItem.history[0].value * (1 - this.step / 100), 3);
+        levelItem['stopProfitPrice'] = levelItem.stopProfitPrice || _.floor(levelItem.history[0].value * (1 + this.step / 100), 3);
         levelItem['percentLabel'] = currentData.percent;
         levelItem['percent'] = currentData.percent;
         levelItem['type'] = levelItem.type;
