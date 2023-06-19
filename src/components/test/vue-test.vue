@@ -69,6 +69,7 @@
       </el-table>
 
       <el-table
+        v-if="false"
         :data="totalList"
         class="right-table"
         :cell-style="{height: '20px', padding: '5px 0'}"
@@ -131,6 +132,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import moment from 'moment';
 import * as echarts from 'echarts';
+import { rkMath } from '../../js/tools/rk-math';
 
 export default {
   name: 'VueTest',
@@ -152,7 +154,8 @@ export default {
       myChart: null,
       now: null,
       percentage: null,
-      totalValue: 0
+      totalValue: 0,
+      referenceValue: 0
     };
   },
   computed:{
@@ -171,6 +174,11 @@ export default {
     }
   },
   async mounted () {
+    let perGrowAllDay = rkMath.getRoot(3963.35 / 982.79, 4484); // workday 1.0002070051602752
+    let days = moment().diff( moment('2023-06-16'), 'days');
+    let baseValue = 1.898 * 1.49 / 1.37;
+    this.referenceValue = baseValue * Math.pow(perGrowAllDay, days);
+
     this.now = moment();
     this.line = await axios.get('http://localhost:3000/data?name=' + moment().format('YYYY-MM-DD')).then((res)=>{
       return res.data.data;
@@ -305,6 +313,14 @@ export default {
           prop: 'target',
         });
         this.column.push({
+          label: '参考价位',
+          prop: 'referenceValue',
+        });
+        this.column.push({
+          label: '参考分位',
+          prop: 'referenceValueRate',
+        });
+        this.column.push({
           label: '持仓',
           prop: 'total',
         });
@@ -340,6 +356,13 @@ export default {
         let currentData = _.find(data, {symbol: levelItem.code});
         if(!currentData)continue;
 
+        if(levelItem.code === '510310'){
+          levelItem.referenceValue = _.floor(this.referenceValue, 3);
+          levelItem.referenceValueRate = _.floor(currentData.current / this.referenceValue * 100, 2);
+        }else{
+          levelItem.referenceValue = '-';
+          levelItem.referenceValueRate = '-';
+        }
         levelItem['marginPrice'] = levelItem.marginPrice || _.floor(levelItem.history[0].value * (1 - this.step / 100), 3);
         levelItem['stopProfitPrice'] = levelItem.stopProfitPrice || _.floor(levelItem.history[0].value * (1 + this.step / 100), 3);
         levelItem['percentLabel'] = currentData.percent;
