@@ -1,12 +1,14 @@
 let _ = require('lodash');
-function getRoot(x, y) {
-  return Math.pow(x, 1 / y);;
-}
 let moment = require('moment');
 let dayDataList = require('./300.json').data.item;
-let listAllDays = moment(_.last(dayDataList)[0]).diff( moment(_.first(dayDataList)[0]), 'days');
-let perGrowAllDay = getRoot(_.last(dayDataList)[5] / _.first(dayDataList)[5], listAllDays); // workday 1.0002070051602752
-let perGrowWorkDay = getRoot(_.last(dayDataList)[5] / _.first(dayDataList)[5], dayDataList.length);// 1.0003110317324733
+
+function getRoot(x, y) {
+  return Math.pow(x, 1 / y);
+}
+let lastItemTargetValue = _.last(dayDataList)[5] * 1.49 / 1.37;
+let listDiffDays = moment(_.last(dayDataList)[0]).diff( moment(_.first(dayDataList)[0]), 'days');
+let perGrowAllDay = getRoot(lastItemTargetValue / _.first(dayDataList)[5], listDiffDays); // workday 1.0002070051602752
+let perGrowWorkDay = getRoot(lastItemTargetValue / _.first(dayDataList)[5], dayDataList.length);// 1.0003110317324733
 function getHundred(n){
   return _.ceil(n / 100) * 100;
 }
@@ -84,11 +86,13 @@ function main(arg){
     sell:0,
     buy: 0
   };
+  let firstItemMoment = moment(_.first(dayDataList)[0]);
   for(let i = 0; i < dayDataList.length; i++){
-    let prevCurrent = gridValue;
-    targetValue = base * Math.pow(perGrowWorkDay, i);
-    days = i + 2;
     let item = dayDataList[i];
+    let nowDiffDays = moment(item[0]).diff(firstItemMoment, 'days');
+    targetValue = base * Math.pow(perGrowAllDay, nowDiffDays);
+    let prevCurrent = gridValue;
+    days = i + 2;
     value = ETFToIndex(item[5]);
 
     let cost = 0, currentCostCount = 0;
