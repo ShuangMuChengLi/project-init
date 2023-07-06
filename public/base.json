@@ -1,36 +1,31 @@
-[
-  {
-    "name": "HS300ETF",
-    "code": "510310",
-    "prevCode": "SH",
-    "type": "宽基ETF",
-    "history": [
-      {
-        "count": -10000,
-        "value": 1.855
-      },
-      {
-        "count": 10200,
-        "value": 1.819
-      },
-      {
-        "count": 196000,
-        "value": 1.857
-      }
-    ],
-    "target": 2.064
-  },
-  {
-    "name": "特锐德",
-    "code": "300001",
-    "prevCode": "SZ",
-    "type": "新能源",
-    "history": [
-      {
-        "count": 300,
-        "value": 22.06
-      }
-    ],
-    "target": 30
-  }
-]
+{
+  "list": [
+    {
+      "name": "HS300ETF",
+      "code": "510310",
+      "prevCode": "SH",
+      "type": "宽基ETF",
+      "history": [
+        {
+          "count": 3900,
+          "value": 1.831
+        },
+        {
+          "count": -10000,
+          "value": 1.855
+        },
+        {
+          "count": 10200,
+          "value": 1.819
+        },
+        {
+          "count": 196000,
+          "value": 1.857
+        }
+      ],
+      "target": 2.064
+    }
+  ],
+  "money": 87667
+
+}

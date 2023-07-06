@@ -124,6 +124,11 @@
         </el-table-column>
       </el-table>
     </div>
+    <div
+      v-if="!isHide"
+      id="historyChart"
+      class="chart"
+    />
   </div>
 </template>
 
@@ -133,11 +138,13 @@ import _ from 'lodash';
 import moment from 'moment';
 import * as echarts from 'echarts';
 import { rkMath } from '../../js/tools/rk-math';
+import {getHistoryData, getLibRate} from './getTargetLib';
 
 export default {
   name: 'VueTest',
   data () {
     return {
+      money: 0,
       isShowChart: false,
       isHide: true,
       tableData: [],
@@ -152,6 +159,8 @@ export default {
       line: [],
       lineX: [],
       myChart: null,
+      historyChart: null,
+      historyInfo: [],
       now: null,
       percentage: null,
       totalValue: 0,
@@ -160,24 +169,14 @@ export default {
   },
   computed:{
     isOpen(){
-      return this.now.day() > 0 && this.now.day() < 6 && (this.now.isBetween(
+      return this.now.day() > 0 && this.now.day() < 6 && this.now.isBetween(
         moment().set('hour', 9).set('minute', 15).set('second', 0),
-        moment().set('hour', 9).set('minute', 25).set('second', 0),
-      ) || this.now.isBetween(
-        moment().set('hour', 9).set('minute', 30).set('second', 0),
-        moment().set('hour', 11).set('minute', 35).set('second', 0),
-      ) ||
-        this.now.isBetween(
-          moment().set('hour', 13).set('minute', 0).set('second', 0),
-          moment().set('hour', 15).set('minute', 5).set('second', 0),
-        ));
+        moment().set('hour', 15).set('minute', 5).set('second', 0),
+      );
     }
   },
   async mounted () {
-    let perGrowAllDay = rkMath.getRoot(3963.35 / 982.79, 4484); // workday 1.0002070051602752
-    let days = moment().diff( moment('2023-06-16'), 'days');
-    let baseValue = 1.898 * 1.49 / 1.37;
-    this.referenceValue = baseValue * Math.pow(perGrowAllDay, days);
+
 
     this.now = moment();
     this.line = await axios.get('http://localhost:3000/data?name=' + moment().format('YYYY-MM-DD')).then((res)=>{
@@ -198,8 +197,14 @@ export default {
         green: row.percent < 0 && (['percentLabel', 'profitLabel', 'current'].includes(item.prop)),
       };
     },
-    hide(){
+    async hide(){
       this.isHide = !this.isHide;
+      if(!this.isHide){
+        await this.$nextTick();
+
+        this.initHistoryChart();
+
+      }
     },
     setTimer(){
       clearInterval(this.timer);
@@ -271,6 +276,59 @@ export default {
       // 使用刚指定的配置项和数据显示图表。
       this.myChart.setOption(option);
     },
+    initHistoryChart(data){
+      if(!this.historyChart){
+        this.historyChart = echarts.init(document.getElementById('historyChart'));
+      }
+      // 基于准备好的dom，初始化echarts实例
+      // 指定图表的配置项和数据
+      var option = {
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'shadow'
+          },
+          formatter:  (param)=>{
+            return `
+            <div>pb：${param[0].data.key}</div>
+            <div>数量：${param[0].data.value}</div>
+            <div>价格：${param[0].data.price}</div>
+          `;
+          }
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        xAxis: [
+          {
+            type: 'category',
+            data: this.historyInfo.map(item=>item.key + ''),
+            axisTick: {
+              alignWithLabel: true
+            }
+          }
+        ],
+        yAxis: [
+          {
+            type: 'value'
+          }
+        ],
+        series: [
+          {
+            name: '天数',
+            type: 'bar',
+            barWidth: '60%',
+            data: this.historyInfo
+          }
+        ]
+      };
+
+      // 使用刚指定的配置项和数据显示图表。
+      this.historyChart.setOption(option);
+    },
     async init () {
       let url = '/v5/stock/realtime/quotec.json?symbol=';
       let arr = this.levelList.map(item=>`${item.prevCode}${item.code}`);
@@ -301,42 +359,54 @@ export default {
           prop: 'current',
         });
         this.column.push({
-          label: '待补仓价',
-          prop: 'marginPrice',
+          label: 'pb',
+          prop: 'pb',
+        });
+        // this.column.push({
+        //   label: '待补仓价',
+        //   prop: 'marginPrice',
+        // });
+        // this.column.push({
+        //   label: '止盈价',
+        //   prop: 'stopProfitPrice',
+        // });
+        // this.column.push({
+        //   label: '目标价格',
+        //   prop: 'target',
+        // });
+        // this.column.push({
+        //   label: '目标空间',
+        //   prop: 'space',
+        //   width: '120px'
+        // });
+        this.column.push({
+          label: '交易数量',
+          prop: 'marginCount',
         });
         this.column.push({
-          label: '止盈价',
-          prop: 'stopProfitPrice',
+          label: '交易价格',
+          prop: 'marginValue',
         });
         this.column.push({
-          label: '目标价',
-          prop: 'target',
+          label: '目标仓位',
+          prop: 'targetRate',
         });
         this.column.push({
-          label: '参考价位',
-          prop: 'referenceValue',
-        });
-        this.column.push({
-          label: '参考分位',
-          prop: 'referenceValueRate',
+          label: '当前仓位',
+          prop: 'currentRate',
         });
         this.column.push({
           label: '持仓',
           prop: 'total',
         });
-        this.column.push({
-          label: '仓位',
-          prop: 'accountPercentage',
-        });
-        this.column.push({
-          label: '上涨空间',
-          prop: 'space',
-          width: '120px'
-        });
-        this.column.push({
-          label: '行业',
-          prop: 'type',
-        });
+        // this.column.push({
+        //   label: '仓位',
+        //   prop: 'accountPercentage',
+        // });
+        // this.column.push({
+        //   label: '行业',
+        //   prop: 'type',
+        // });
       }
       for(let levelItem of this.levelList){
         levelItem.count = _.reduce(levelItem.history, function(sum, n) {
@@ -351,18 +421,19 @@ export default {
         }
         return sum + _.floor(currentData.current * n.count);
       }, 0);
+      let totalLib = (this.totalValue + this.money);
       let typeSet = {};
+      function getThousand(n){
+        return _.floor(n / 1000) * 1000;
+      }
       for(let levelItem of this.levelList){
         let currentData = _.find(data, {symbol: levelItem.code});
         if(!currentData)continue;
 
-        if(levelItem.code === '510310'){
-          levelItem.referenceValue = _.floor(this.referenceValue, 3);
-          levelItem.referenceValueRate = _.floor(currentData.current / this.referenceValue * 100, 2);
-        }else{
-          levelItem.referenceValue = '-';
-          levelItem.referenceValueRate = '-';
-        }
+        levelItem['marginCount'] = '-';
+        levelItem['marginValue'] = '-';
+        levelItem['targetRate'] = '-';
+        levelItem['currentRate'] = '-';
         levelItem['marginPrice'] = levelItem.marginPrice || _.floor(levelItem.history[0].value * (1 - this.step / 100), 3);
         levelItem['stopProfitPrice'] = levelItem.stopProfitPrice || _.floor(levelItem.history[0].value * (1 + this.step / 100), 3);
         levelItem['percentLabel'] = currentData.percent;
@@ -374,7 +445,7 @@ export default {
         levelItem['profitLabel'] = _.floor(currentData.chg * levelItem.count, 2);
         levelItem['lastCloseValue'] = currentData.last_close * levelItem.count;
         levelItem['total'] = _.floor(currentData.current * levelItem.count);
-        levelItem['accountPercentage'] = _.floor(levelItem['total'] / this.totalValue * 100, 2);
+        levelItem['accountPercentage'] = _.floor(levelItem['total'] / totalLib * 100, 2);
         levelItem['space'] = _.floor( (levelItem['target'] - levelItem['current']) / levelItem['current'] * 100, 2);
         if(typeSet[levelItem.type]){
           typeSet[levelItem.type].total += levelItem['total'];
@@ -394,7 +465,7 @@ export default {
           total: total,
           profit: _.floor(typeSet[type].profit),
           // levelItem['accountPercentage'] = _.floor(levelItem['total'] / totalValue * 100, 2);
-          accountPercentage: _.floor(total / this.totalValue * 100, 2),
+          accountPercentage: _.floor(total / totalLib * 100, 2),
           percentLabel: _.floor(typeSet[type].profit / typeSet[type].total * 100, 2),
         });
       }
@@ -407,6 +478,24 @@ export default {
       let lastCloseValue = _.reduce(this.levelList, function(sum, n) {
         return sum + n.lastCloseValue;
       }, 0);
+
+      let currentData = _.find(data, {symbol: '510310'});
+      let levelItem = _.find(this.levelList, {code: '510310'});
+      let b = 1.873 / 1.34;
+      let pb = currentData.current / b;
+      let targetRateData = getLibRate(pb);
+      console.log(targetRateData);
+      let targetRate = targetRateData.rate;
+      let currentLib = levelItem.count * currentData.current;
+      let currentRate = currentLib / totalLib;
+      let marginCount = getThousand((targetRate - currentRate) * totalLib / currentData.current);
+      let marginValue = marginCount * currentData.current;
+      this.$set(levelItem, 'pb', _.floor(pb, 3));
+      this.$set(levelItem, 'marginCount', marginCount);
+      this.$set(levelItem, 'marginValue', marginValue);
+      this.$set(levelItem, 'targetRate', _.floor(targetRate * 100, 2));
+      this.$set(levelItem, 'currentRate', _.floor(currentRate * 100, 2));
+
       this.percentage = _.ceil(this.profit / lastCloseValue * 100, 2) + '%';
       if(this.isOpen){
         let baseProfit = _.floor((_.find(data, {symbol: '510310'})?.percent || 0) / 100 * lastCloseValue);
@@ -422,15 +511,18 @@ export default {
       if(this.isShowChart){
         this.initChart(this.line);
       }
+      this.historyInfo = getHistoryData();
     },
     async getBaseData(){
-      this.levelList = await axios.get('./base.json')
+      let result = await axios.get('./base.json')
         .then((res) => {
           return (res.data);
         })
         .catch((e) => {
           console.error(e);
         });
+      this.levelList = result.list;
+      this.money = result.money;
     },
     getLabel(row, item){
       return `${row[item.prop]}`;

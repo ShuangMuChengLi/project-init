@@ -1,0 +1,11 @@
+// let PB = 4.47;
+// let targetPB = 6.26;
+// let index = 1011;
+// let value = 1.06;
+// let target = targetPB / PB * 1.06;
+// console.log(target);
+let PB = 1.41;
+let targetPB = 1.6;
+let value = 1.083;
+let target = targetPB / PB * value;
+console.log(target);

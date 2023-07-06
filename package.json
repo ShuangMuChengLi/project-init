@@ -2,6 +2,7 @@
   "name": "project-init",
   "version": "3.0.4",
   "private": true,
+  "type": "commonjs",
   "scripts": {
     "start": "vue-cli-service serve",
     "api": "set NODE_ENV=development&& node ./bin/www",
