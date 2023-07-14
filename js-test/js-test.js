@@ -24,3 +24,4 @@
 // console.log(baseValue);
 // console.log(1500000 / 50000);
 // console.log(100000 / 50000);
+let list = [1, 2, 3, 4, 5];

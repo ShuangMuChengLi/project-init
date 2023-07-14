@@ -74,6 +74,10 @@ module.exports = {
   outputDir: buildPath,
   devServer: {
     proxy: {
+      '/html': {
+        target: 'http://192.168.137.55:3000',
+        changeOrigin: true
+      },
       '/local-api': {
         target: 'http://localhost:' + config.api_local_port,
         changeOrigin: true

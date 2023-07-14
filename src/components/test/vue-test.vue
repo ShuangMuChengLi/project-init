@@ -125,7 +125,7 @@
       </el-table>
     </div>
     <div
-      v-if="!isHide"
+      v-show="!isHide"
       id="historyChart"
       class="chart"
     />
@@ -164,7 +164,8 @@ export default {
       now: null,
       percentage: null,
       totalValue: 0,
-      referenceValue: 0
+      referenceValue: 0,
+      markPb: null
     };
   },
   computed:{
@@ -276,12 +277,14 @@ export default {
       // 使用刚指定的配置项和数据显示图表。
       this.myChart.setOption(option);
     },
-    initHistoryChart(data){
+    initHistoryChart(){
       if(!this.historyChart){
         this.historyChart = echarts.init(document.getElementById('historyChart'));
       }
       // 基于准备好的dom，初始化echarts实例
       // 指定图表的配置项和数据
+      let markIndex = _.findIndex(this.historyInfo, {'key': this.markPb + ''});
+      let mark = this.historyInfo[markIndex];
       var option = {
         tooltip: {
           trigger: 'axis',
@@ -305,7 +308,7 @@ export default {
         xAxis: [
           {
             type: 'category',
-            data: this.historyInfo.map(item=>item.key + ''),
+            data: this.historyInfo.map(item=>item.key),
             axisTick: {
               alignWithLabel: true
             }
@@ -321,7 +324,20 @@ export default {
             name: '天数',
             type: 'bar',
             barWidth: '60%',
-            data: this.historyInfo
+            data: this.historyInfo,
+            markPoint: {
+              itemStyle: {
+                color: '#B03A5B'
+              },
+              data: [
+                {
+                  name: 'Max',
+                  value: mark.price,
+                  xAxis: markIndex,
+                  yAxis: mark.value
+                }
+              ]
+            },
           }
         ]
       };
@@ -355,13 +371,26 @@ export default {
           prop: 'profitLabel',
         });
         this.column.push({
+          label: 'floorPrice',
+          prop: 'floorPrice',
+        });
+        this.column.push({
           label: '现价',
           prop: 'current',
         });
         this.column.push({
+          label: 'ceilPrice',
+          prop: 'ceilPrice',
+        });
+
+        this.column.push({
           label: 'pb',
           prop: 'pb',
         });
+        /**
+         * this.$set(levelItem, 'floorPrice', floorPrice);
+         this.$set(levelItem, 'ceilPrice', ceilPrice);
+         */
         // this.column.push({
         //   label: '待补仓价',
         //   prop: 'marginPrice',
@@ -426,6 +455,9 @@ export default {
       function getThousand(n){
         return _.floor(n / 1000) * 1000;
       }
+      function getHundred(n){
+        return _.floor(n / 100) * 100;
+      }
       for(let levelItem of this.levelList){
         let currentData = _.find(data, {symbol: levelItem.code});
         if(!currentData)continue;
@@ -483,14 +515,19 @@ export default {
       let levelItem = _.find(this.levelList, {code: '510310'});
       let b = 1.873 / 1.34;
       let pb = currentData.current / b;
-      let targetRateData = getLibRate(pb);
-      console.log(targetRateData);
+      this.markPb = _.floor(pb, 2);
+      let floorPrice = _.floor(_.floor(pb, 2) * b, 3);
+      let ceilPrice = _.floor(_.ceil(pb, 2) * b, 3);
+      let targetRateData = getLibRate(pb, b, floorPrice, currentData.current);
       let targetRate = targetRateData.rate;
       let currentLib = levelItem.count * currentData.current;
+
       let currentRate = currentLib / totalLib;
-      let marginCount = getThousand((targetRate - currentRate) * totalLib / currentData.current);
-      let marginValue = marginCount * currentData.current;
+      let marginCount = getHundred((targetRate - currentRate) * totalLib / currentData.current);
+      let marginValue = _.floor(marginCount * currentData.current);
       this.$set(levelItem, 'pb', _.floor(pb, 3));
+      this.$set(levelItem, 'floorPrice', floorPrice);
+      this.$set(levelItem, 'ceilPrice', ceilPrice);
       this.$set(levelItem, 'marginCount', marginCount);
       this.$set(levelItem, 'marginValue', marginValue);
       this.$set(levelItem, 'targetRate', _.floor(targetRate * 100, 2));
@@ -512,6 +549,12 @@ export default {
         this.initChart(this.line);
       }
       this.historyInfo = getHistoryData();
+      if(!this.isHide){
+        await this.$nextTick();
+
+        this.initHistoryChart();
+
+      }
     },
     async getBaseData(){
       let result = await axios.get('./base.json')

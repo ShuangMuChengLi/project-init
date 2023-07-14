@@ -5,10 +5,12 @@ let data = require('../../../js-test/model-pb-rate/pb.json');
 function getNowDate(date){
   return moment(date || null).format('YYYY-MM-DD');
 }
-export function getLibRate(pb){
+// getLibRate(pb, b, floorPrice, currentData.current)
+export function getLibRate(pb, b, floorPrice, current){
   let index = _.findIndex(data, {date: moment('2013-07-04 00:00:00').valueOf()});
   let list = data.slice(index);
   let sortedList = _.sortBy(list, 'addPb');
+  let groupData = _.groupBy(list, 'addPb');
 
   let positionIndex = -1;
   for(let index = 0; index < sortedList.length; index++){
@@ -19,15 +21,19 @@ export function getLibRate(pb){
     }
 
   }
-
+  console.log(positionIndex);
+  positionIndex = positionIndex + groupData[_.floor(pb, 2)].length / ((current - floorPrice) / b * 100);
+  console.log(positionIndex);
+  let rate = 1 - positionIndex / sortedList.length;
   return {
-    rate: 1 - positionIndex / sortedList.length,
-    data: sortedList[positionIndex]
+    rate: rate,
   };
 }
 
 export function getHistoryData(){
-  let groupData = _.groupBy(data, 'addPb');
+  let index = _.findIndex(data, {date: moment('2013-07-04 00:00:00').valueOf()});
+  let list = data.slice(index);
+  let groupData = _.groupBy(list, 'addPb');
   let result = [];
   let b = 1.873 / 1.34;
   for(let key in groupData){

@@ -1,9 +1,6 @@
 <template>
   <div class="root">
-    <div
-      id="chart"
-      class="chart"
-    />
+    <iframe src="http://192.168.137.55:3000/html" />
   </div>
 </template>
 
