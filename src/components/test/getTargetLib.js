@@ -32,7 +32,7 @@ export function getLibRate(pb, current){
   };
 }
 
-export function getHistoryData(currentLib, totalLib, currentValue){
+export function getHistoryData(count, money, currentValue){
   let result = [];
   let b = 1.873 / 1.34;
   function getHundred(n){
@@ -41,16 +41,20 @@ export function getHistoryData(currentLib, totalLib, currentValue){
   for(let key in groupData){
     let positionIndex = _.findIndex(sortedList, {addPb: Number(key)});
     let rate = 1 - positionIndex / sortedList.length;
-    let currentRate = currentLib / totalLib;
     let price = b * key;
-    let marginCount = getHundred((rate - currentRate) * totalLib / price);
-    let marginValue = _.floor(marginCount * price);
+    let marginValue = _.floor(price * count - (price * count + money) * rate);
+    let marginCount = getHundred(marginValue / price);
+    let profit = Math.abs(_.floor((price - currentValue) * marginCount));
+    // if(key === '1.48'){
+    //   console.log(marginCount, price - currentValue);
+    // }
     result.push({
       key,
       value: groupData[key].length,
       rate: _.floor(rate * 100, 2),
-      marginValue: _.floor(marginValue, 2),
+      marginValue: _.floor(marginValue),
       marginCount: _.floor(marginCount, 2),
+      profit: profit,
       price: _.floor(price, 3)
     });
   }

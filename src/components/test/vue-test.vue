@@ -377,6 +377,7 @@ export default {
             <div>rate：${param[0].data.rate}</div>
             <div>marginValue：${param[0].data.marginValue}</div>
             <div>marginCount：${param[0].data.marginCount}</div>
+            <div>profit：${param[0].data.profit}</div>
             <div>数量：${param[0].data.value}</div>
             <div>价格：${param[0].data.price}</div>
           `;
@@ -639,7 +640,7 @@ export default {
       if(this.isShowChart){
         this.initChart(this.line);
       }
-      this.historyInfo = getHistoryData(currentLib, totalLib, currentData.current);
+      this.historyInfo = getHistoryData(levelItem.count, this.money, currentData.current);
       if(!this.isHide){
         await this.$nextTick();
 
