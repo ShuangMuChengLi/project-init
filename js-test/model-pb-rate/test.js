@@ -36,7 +36,9 @@ function main(arg){
   for(let i = 0; i < list.length; i++){
     let item = list[i];
     let value = indexToEtf(item[5]);
-    let targetRate = getLibRate(item[0]);
+    let targetRate = getLibRate(item[0], value);
+    if(targetRate === false)continue;
+
     currentLib = libCount * value;
     asset = money + currentLib;
     let currentRate = currentLib / asset;
@@ -45,7 +47,7 @@ function main(arg){
     libCount += marginCount;
     currentLib = libCount * value;
     money -= marginValue;
-    if(!marginCount)continue;
+    // if(!marginCount)continue;
 
     log(
       '' + getNowDate(item[0]),

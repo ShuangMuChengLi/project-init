@@ -86,6 +86,10 @@ module.exports = {
         target: 'https://stock.xueqiu.com',
         changeOrigin: true
       },
+      '/gateway': {
+        target: 'http://www.iwencai.com',
+        changeOrigin: true
+      },
     }
   }
 };
