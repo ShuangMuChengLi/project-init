@@ -2,47 +2,66 @@
 let _ = require('lodash');
 let moment = require('moment');
 let data = require('../../../js-test/model-pb-rate/pb.json');
+
+let index = _.findIndex(data, {date: moment('2013-07-04 00:00:00').valueOf()});
+let list = data.slice(index);
+let sortedList = _.sortBy(list, 'addPb');
+let groupData = _.groupBy(list, 'addPb');
+let b = 1.873 / 1.34;
 function getNowDate(date){
   return moment(date || null).format('YYYY-MM-DD');
 }
 // getLibRate(pb, b, floorPrice, currentData.current)
-export function getLibRate(pb, b, floorPrice, current){
-  let index = _.findIndex(data, {date: moment('2013-07-04 00:00:00').valueOf()});
-  let list = data.slice(index);
-  let sortedList = _.sortBy(list, 'addPb');
-  let groupData = _.groupBy(list, 'addPb');
+export function getLibRate(pb, current){
 
   let positionIndex = -1;
+  let floorPb = _.floor(pb, 2);
+  let floorPrice = floorPb * b;
   for(let index = 0; index < sortedList.length; index++){
     positionIndex = index;
 
-    if(sortedList[index].addPb >= pb){
+    if(sortedList[index].addPb >= floorPb){
       break;
     }
 
   }
-  console.log(positionIndex);
-  positionIndex = positionIndex + groupData[_.floor(pb, 2)].length / ((current - floorPrice) / b * 100);
-  console.log(positionIndex);
+  positionIndex = positionIndex + groupData[floorPb].length * (current - floorPrice) / (b / 100);
   let rate = 1 - positionIndex / sortedList.length;
   return {
     rate: rate,
   };
 }
 
-export function getHistoryData(){
-  let index = _.findIndex(data, {date: moment('2013-07-04 00:00:00').valueOf()});
-  let list = data.slice(index);
-  let groupData = _.groupBy(list, 'addPb');
+export function getHistoryData(currentLib, totalLib, currentValue){
   let result = [];
   let b = 1.873 / 1.34;
+  function getHundred(n){
+    return _.floor(n / 100) * 100;
+  }
   for(let key in groupData){
+    let positionIndex = _.findIndex(sortedList, {addPb: Number(key)});
+    let rate = 1 - positionIndex / sortedList.length;
+    let currentRate = currentLib / totalLib;
+    let price = b * key;
+    let marginCount = getHundred((rate - currentRate) * totalLib / price);
+    let marginValue = _.floor(marginCount * price);
     result.push({
       key,
       value: groupData[key].length,
-      price: _.floor(b * key, 3)
+      rate: _.floor(rate * 100, 2),
+      marginValue: _.floor(marginValue, 2),
+      marginCount: _.floor(marginCount, 2),
+      price: _.floor(price, 3)
     });
   }
   result = _.sortBy(result, 'key');
   return result;
+}
+
+export function getTargetPriceByLib(lib){
+  let index = _.floor(sortedList.length * (100 - lib) / 100);
+  let item = sortedList[index];
+  let floorIndex = _.findIndex(sortedList, {addPb: item.addPb});
+  let marginPb = (index - floorIndex) / groupData[item.addPb].length * 0.01;
+  return _.floor((item.addPb + marginPb) * b, 3);
 }
