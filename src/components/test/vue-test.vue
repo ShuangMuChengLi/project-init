@@ -40,141 +40,106 @@
       id="chart"
       class="chart"
     />
-    <div
-      v-if="!isHide"
-      class="table-wrapper"
-    >
-      <el-table
-        :data="tableData"
-        :cell-style="{height: '20px', padding: '1px 0'}"
-        class="left-table"
-        :default-sort="{prop: 'percentLabel', order: 'descending'}"
+    <template v-if="!isHide">
+      <div
+        class="table-wrapper"
       >
-        <el-table-column
-          v-for="(item) in column"
-          :key="item.prop"
-          :label="item.label"
-          :width="item.width"
-          :prop="item.prop"
-          sortable
+        <el-table
+          :data="tableData"
+          :cell-style="{height: '20px', padding: '1px 0'}"
+          class="left-table"
+          :default-sort="{prop: 'percentLabel', order: 'descending'}"
         >
-          <template
-            slot-scope="scope"
+          <el-table-column
+            v-for="(item) in column"
+            :key="item.prop"
+            :label="item.label"
+            :width="item.width"
+            :prop="item.prop"
+            sortable
           >
-            <span
-              :class="getRowItemClass(scope.row, item)"
-            >{{ getLabel(scope.row, item) }}</span>
-          </template>
-        </el-table-column>
-      </el-table>
+            <template
+              slot-scope="scope"
+            >
+              <span
+                :class="getRowItemClass(scope.row, item)"
+              >{{ getLabel(scope.row, item) }}</span>
+            </template>
+          </el-table-column>
+        </el-table>
 
+        <el-table
+          v-if="false"
+          :data="totalList"
+          class="right-table"
+          :cell-style="{height: '20px', padding: '5px 0'}"
+          :default-sort="{prop: 'percentLabel', order: 'descending'}"
+        >
+          <el-table-column
+            label="行业"
+
+            prop="type"
+          />
+          <el-table-column
+            label="持仓"
+
+            prop="total"
+            sortable
+          />
+          <el-table-column
+            label="仓位%"
+
+            prop="accountPercentage"
+            sortable
+          />
+          <el-table-column
+            label="当日盈亏"
+
+            prop="profit"
+            sortable
+          >
+            <template slot-scope="scope">
+              <span
+                :class="{
+                  red: scope.row.profit > 0,
+                  green: scope.row.profit < 0,
+                }"
+              >{{ scope.row.profit }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="涨跌幅"
+
+            prop="percentLabel"
+            sortable
+          >
+            <template slot-scope="scope">
+              <span
+                :class="{
+                  red: scope.row.profit > 0,
+                  green: scope.row.profit < 0,
+                }"
+              >{{ scope.row.percentLabel }}</span>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+
+      <div
+        id="historyChart"
+        class="chart"
+        @click="futureProfitListVisible = !futureProfitListVisible"
+      />
       <el-table
-        v-if="false"
-        :data="totalList"
+        v-if="futureProfitListVisible"
+        :data="futureProfitList"
         class="right-table"
         :cell-style="{height: '20px', padding: '5px 0'}"
         :default-sort="{prop: 'percentLabel', order: 'descending'}"
-      >
-        <el-table-column
-          label="行业"
-
-          prop="type"
-        />
-        <el-table-column
-          label="持仓"
-
-          prop="total"
-          sortable
-        />
-        <el-table-column
-          label="仓位%"
-
-          prop="accountPercentage"
-          sortable
-        />
-        <el-table-column
-          label="当日盈亏"
-
-          prop="profit"
-          sortable
-        >
-          <template slot-scope="scope">
-            <span
-              :class="{
-                red: scope.row.profit > 0,
-                green: scope.row.profit < 0,
-              }"
-            >{{ scope.row.profit }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          label="涨跌幅"
-
-          prop="percentLabel"
-          sortable
-        >
-          <template slot-scope="scope">
-            <span
-              :class="{
-                red: scope.row.profit > 0,
-                green: scope.row.profit < 0,
-              }"
-            >{{ scope.row.percentLabel }}</span>
-          </template>
-        </el-table-column>
-      </el-table>
-    </div>
-    <div
-      v-show="!isHide"
-      id="historyChart"
-      class="chart"
-    />
-    <div v-if="!isHide">
-      <el-button
-        type="primary"
-        @click="detail"
-      >
-        明细
-      </el-button>
-    </div>
-    <div v-if="!isHide && partVisible">
-      <div>
-        <span class="label">当日盈亏：</span>
-        <span
-          class="number"
-          :class="{green: partProfit < 0, red: partProfit > 0}"
-        >{{ partProfit }}</span>
-      </div>
-
-      <el-table
-        :data="partList"
-        :cell-style="{height: '20px', padding: '1px 0'}"
-        class="left-table"
         height="100vh"
       >
         <el-table-column
-          v-for="(item) in partColumn"
-          :key="item.prop"
-          :label="getTableLabel(item.label)"
-          :prop="item.prop"
-          sortable
-          :width="item.prop === '所属同花顺行业' ? '300px': null"
-        >
-          <template
-            slot-scope="scope"
-          >
-            <span :class="getRowItemClass(scope.row, item)">{{ getLabel(scope.row, item) }}</span>
-          </template>
-        </el-table-column>
-      </el-table>
-      <el-table
-        :data="partStatisticList"
-        class="right-table"
-        :cell-style="{height: '20px', padding: '5px 0'}"
-        :default-sort="{prop: 'percentLabel', order: 'descending'}"
-      >
-        <el-table-column
-          v-for="(item) in partStatisticColumn"
+          v-for="(item) in futureProfitColumn"
           :key="item.prop"
           :label="getTableLabel(item.label)"
           :prop="item.prop"
@@ -187,7 +152,66 @@
           </template>
         </el-table-column>
       </el-table>
-    </div>
+      <div>
+        <el-button
+          type="primary"
+          @click="detail"
+        >
+          明细
+        </el-button>
+      </div>
+      <div v-if="partVisible">
+        <div>
+          <span class="label">基准盈亏：</span>
+          <span
+            class="number"
+            :class="{green: partProfit < 0, red: partProfit > 0}"
+          >{{ partProfit }}</span>
+        </div>
+
+        <el-table
+          :data="partList"
+          :cell-style="{height: '20px', padding: '1px 0'}"
+          class="left-table"
+          height="100vh"
+        >
+          <el-table-column
+            v-for="(item) in partColumn"
+            :key="item.prop"
+            :label="getTableLabel(item.label)"
+            :prop="item.prop"
+            sortable
+            :width="item.prop === '所属同花顺行业' ? '300px': null"
+          >
+            <template
+              slot-scope="scope"
+            >
+              <span :class="getRowItemClass(scope.row, item)">{{ getLabel(scope.row, item) }}</span>
+            </template>
+          </el-table-column>
+        </el-table>
+        <el-table
+          :data="partStatisticList"
+          class="right-table"
+          :cell-style="{height: '20px', padding: '5px 0'}"
+          :default-sort="{prop: 'percentLabel', order: 'descending'}"
+        >
+          <el-table-column
+            v-for="(item) in partStatisticColumn"
+            :key="item.prop"
+            :label="getTableLabel(item.label)"
+            :prop="item.prop"
+            sortable
+          >
+            <template
+              slot-scope="scope"
+            >
+              <span>{{ getLabel(scope.row, item) }}</span>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -233,6 +257,9 @@ export default {
       partVisible: false,
       partStatisticList: [],
       partStatisticColumn: [],
+      futureProfitListVisible: false,
+      futureProfitList: [],
+      futureProfitColumn: [],
       partProfit: 0
     };
   },
@@ -290,7 +317,7 @@ export default {
           this.next = this.second;
           if(!this.isOpen)return;
 
-          this.init();
+          // this.init();
         }else{
           this.next--;
         }
@@ -531,7 +558,6 @@ export default {
       this.totalValue = _.reduce(this.levelList, (sum, n)=> {
         let currentData = _.find(data, {symbol: n.code});
         if(!currentData){
-          console.log(data, n.code);
           return sum;
         }
         return sum + _.floor(currentData.current * n.count);
@@ -539,12 +565,11 @@ export default {
       this.lastCloseTotalValue = _.reduce(this.levelList, (sum, n)=> {
         let currentData = _.find(data, {symbol: n.code});
         if(!currentData){
-          console.log(data, n.code);
           return sum;
         }
         return sum + _.floor(currentData.last_close * n.count);
       }, 0);
-      let totalLib = (this.lastCloseTotalValue + this.money);
+      let totalLib = this.totalValue + this.money;
       let typeSet = {};
       function getThousand(n){
         return _.floor(n / 1000) * 1000;
@@ -614,7 +639,8 @@ export default {
       let targetRate = targetRateData.rate;
       let currentLib = levelItem.count * currentData.current;
       let currentRate = currentLib / totalLib;
-      let marginCount = getHundred((targetRate - currentRate) * totalLib / currentData.current);
+      // let marginCount = getHundred((targetRate - currentRate) * totalLib / currentData.current);
+      let marginCount = getHundred((targetRate * totalLib - currentLib) / currentData.current);
       let marginValue = _.floor(marginCount * currentData.current);
       let currentRatePrice = getTargetPriceByLib(currentRate * 100);
       this.$set(levelItem, 'pb', _.floor(pb, 3));
@@ -641,6 +667,90 @@ export default {
         this.initChart(this.line);
       }
       this.historyInfo = getHistoryData(levelItem.count, this.money, currentData.current);
+      /**
+       * 模拟未来收益
+       */
+      let index = _.findIndex(this.historyInfo, {key: this.markPb + ''});
+      let list = this.historyInfo.slice(index);
+      let count = levelItem.count;
+      let money = this.money;
+      let current = list[0];
+      /**
+       * futureProfitList: [],
+       futureProfitColumn: [],
+       * @type {*[]}
+       */
+      let profitList = [];
+      /**
+       * price: item.price,
+       marginCount,
+       marginValue,
+       count,
+       money,
+       profit: count * item.price + money - totalLib
+       * @type {[{prop: string, label: string}, {prop: string, label: string}, {prop: string, label: string}]}
+       */
+      this.futureProfitColumn = [
+        {
+          label: 'price',
+          prop: 'price'
+        },
+        {
+          label: 'rate',
+          prop: 'rate'
+        },
+        {
+          label: 'marginCount',
+          prop: 'marginCount'
+        },
+        {
+          label: 'marginValue',
+          prop: 'marginValue'
+        },
+        {
+          label: 'count',
+          prop: 'count'
+        },
+        {
+          label: 'money',
+          prop: 'money'
+        },
+        {
+          label: 'profit',
+          prop: 'profit'
+        },
+      ];
+      for(let item of list){
+        let lib = item.price * count;
+        let total = money + lib;
+        // let libRate = item.price * count / total;
+        let targetLib = total * (item.rate) / 100;
+        let marginCount = getHundred((current.price * count - targetLib) / item.price);
+        let marginValue = marginCount * item.price;
+        if(
+          marginCount >= 15000
+          && money < 40 * 10000
+          // && item.rate <= 50
+        ){
+          current = item;
+          count -= marginCount;
+          money += marginValue;
+        }else{
+          marginCount = 0;
+          marginValue = 0;
+        }
+        profitList.push({
+          price: item.price,
+          rate: item.rate,
+          marginCount,
+          marginValue: _.floor(marginValue),
+          count,
+          money: _.floor(money),
+          profit: _.floor(count * item.price + money - totalLib)
+        });
+      }
+
+      this.futureProfitList = profitList;
       if(!this.isHide){
         await this.$nextTick();
 
@@ -668,11 +778,11 @@ export default {
     async getAllPartList(){
       this.partList = [];
       let list = [];
+      this.partProfit = 0;
       for(let i = 1; i < 4 ; i++){
         let result = await this.getPartList(i);
         list = list.concat(result);
       }
-      this.partProfit = 0;
       list.forEach(item=>{
         for(let key in item){
           if(key.includes('市净率') || key.includes('市盈率') || ['沪深300个股权重', '最新价', '最新涨跌幅'].includes(key)){
@@ -684,9 +794,20 @@ export default {
         }
         item['持仓'] = _.floor(this.totalValue * item['沪深300个股权重'] / 100);
         let lastCloseValue = _.floor(this.lastCloseTotalValue * item['沪深300个股权重'] / 100);
-        item['贡献'] = _.floor(lastCloseValue * item['最新涨跌幅'] / 100);
+        if(!item['最新价']){
+          item['最新价'] = lastCloseValue;
+        }
+        if(item['最新涨跌幅']){
+          item['贡献'] = _.floor(lastCloseValue * item['最新涨跌幅'] / 100);
+        }else{
+          item['最新涨跌幅'] = 0;
+          item['贡献'] = 0;
+        }
+
       });
       this.partProfit = _.floor(_.reduce(list, function(sum, n) {
+        if(!n)return sum;
+
         return sum + n['贡献'];
       }, 0));
       let partColumn = Object.keys(list[0]).map(item=>{

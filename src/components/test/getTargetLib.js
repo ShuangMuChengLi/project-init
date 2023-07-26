@@ -5,6 +5,7 @@ let data = require('../../../js-test/model-pb-rate/pb.json');
 
 let index = _.findIndex(data, {date: moment('2013-07-04 00:00:00').valueOf()});
 let list = data.slice(index);
+// let list = data;
 let sortedList = _.sortBy(list, 'addPb');
 let groupData = _.groupBy(list, 'addPb');
 let b = 1.873 / 1.34;
