@@ -222,7 +222,7 @@ import moment from 'moment';
 import * as echarts from 'echarts';
 import { rkMath } from '../../js/tools/rk-math';
 import {getHistoryData, getLibRate, getTargetPriceByLib} from './getTargetLib';
-
+import { getB } from './getB';
 export default {
   name: 'VueTest',
   data () {
@@ -272,14 +272,11 @@ export default {
     }
   },
   async mounted () {
-
-
     this.now = moment();
     this.line = await axios.get('http://localhost:3000/data?name=' + moment().format('YYYY-MM-DD')).then((res)=>{
       return res.data.data;
     }).catch(err=>false) || [];
     await this.getBaseData();
-
     await this.init();
     this.setTimer();
   },
@@ -632,7 +629,7 @@ export default {
 
       let currentData = _.find(data, {symbol: '510310'});
       let levelItem = _.find(this.levelList, {code: '510310'});
-      let b = 1.873 / 1.34;
+      let b = getB();
       let pb = currentData.current / b;
       this.markPb = _.floor(pb, 2);
       let targetRateData = getLibRate(pb, currentData.current);

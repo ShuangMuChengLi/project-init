@@ -5,7 +5,7 @@ let index = _.findIndex(data, {date: moment('2013-07-04 00:00:00').valueOf()});
 let list = data.slice(index);
 let sortedList = _.sortBy(list, 'addPb');
 let groupData = _.groupBy(list, 'addPb');
-let b = 1.873 / 1.34;
+let b = 1.899 / 1.38;
 module.exports = {
   getLibRate(pb, current){
     let floorPrice = _.floor(_.floor(pb, 2) * b, 3);

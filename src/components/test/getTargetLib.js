@@ -1,3 +1,4 @@
+import {getB} from './getB';
 
 let _ = require('lodash');
 let moment = require('moment');
@@ -8,7 +9,9 @@ let list = data.slice(index);
 // let list = data;
 let sortedList = _.sortBy(list, 'addPb');
 let groupData = _.groupBy(list, 'addPb');
-let b = 1.873 / 1.34;
+// 3912  1.899   3907
+
+let b = getB();
 function getNowDate(date){
   return moment(date || null).format('YYYY-MM-DD');
 }
@@ -35,7 +38,6 @@ export function getLibRate(pb, current){
 
 export function getHistoryData(count, money, currentValue){
   let result = [];
-  let b = 1.873 / 1.34;
   function getHundred(n){
     return _.floor(n / 100) * 100;
   }
