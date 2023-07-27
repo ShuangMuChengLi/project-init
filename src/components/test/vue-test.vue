@@ -314,7 +314,7 @@ export default {
           this.next = this.second;
           if(!this.isOpen)return;
 
-          // this.init();
+          this.init();
         }else{
           this.next--;
         }
