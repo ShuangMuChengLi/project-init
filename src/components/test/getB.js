@@ -5,5 +5,6 @@ export function getB(){
   // let b = etfPrice / PB;
   // console.log(b);
   // return b;
-  return 1.873 / 1.34;
+  // return 1.873 / 1.34;
+  return 1.941 / 1.39;
 }

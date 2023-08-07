@@ -161,20 +161,43 @@
         </el-button>
       </div>
       <div v-if="partVisible">
-        <div>
-          <span class="label">基准盈亏：</span>
-          <span
-            class="number"
-            :class="{green: partProfit < 0, red: partProfit > 0}"
-          >{{ partProfit }}</span>
+        <div class="input-wrapper">
+          <div>
+            <span class="label">基准盈亏：</span>
+            <span
+              class="number"
+              :class="{green: partProfit < 0, red: partProfit > 0}"
+            >{{ partProfit }}</span>
+          </div>
+          <div>
+            <el-input
+              v-model="keyword"
+              clearable
+              placeholder="筛选"
+              suffix-icon="el-icon-search"
+              style="width: 250px;"
+              @change="filter"
+            />
+            <el-button
+              class="button"
+              type="primary"
+              @click="getAllPartList"
+            >
+              刷新
+            </el-button>
+          </div>
         </div>
-
         <el-table
           :data="partList"
           :cell-style="{height: '20px', padding: '1px 0'}"
           class="left-table"
           height="100vh"
         >
+          <el-table-column
+            label="序号"
+            type="index"
+            width="50"
+          />
           <el-table-column
             v-for="(item) in partColumn"
             :key="item.prop"
@@ -195,6 +218,8 @@
           class="right-table"
           :cell-style="{height: '20px', padding: '5px 0'}"
           :default-sort="{prop: 'percentLabel', order: 'descending'}"
+          :tree-props="{children: 'children'}"
+          row-key="id"
         >
           <el-table-column
             v-for="(item) in partStatisticColumn"
@@ -206,7 +231,7 @@
             <template
               slot-scope="scope"
             >
-              <span>{{ getLabel(scope.row, item) }}</span>
+              <span :class="getRowItemClass(scope.row, item)">{{ getLabel(scope.row, item) }}</span>
             </template>
           </el-table-column>
         </el-table>
@@ -227,6 +252,7 @@ export default {
   name: 'VueTest',
   data () {
     return {
+      keyword: null,
       money: 0,
       isShowChart: false,
       isHide: true,
@@ -251,6 +277,7 @@ export default {
       referenceValue: 0,
       markPb: null,
       partList: [],
+      allPartList: [],
       partColumn: [
 
       ],
@@ -287,11 +314,14 @@ export default {
         || item.prop === 'marginPrice' && row.marginPrice > row.current
         || item.prop === 'target' && row.target < row.current
         || item.prop === 'stopProfitPrice' && row.stopProfitPrice < row.current
-        || row['最新涨跌幅'] > 0 && (['最新涨跌幅', '最新价', '贡献'].includes(item.prop)),
+        || row['最新涨跌幅'] > 0 && (['最新涨跌幅', '最新价', '贡献'].includes(item.prop))
+        || ['percentLabel', 'profit'].includes(item.prop) && row['profit'] > 0
+        ,
 
         green:
           row.percent < 0 && (['percentLabel', 'profitLabel', 'current'].includes(item.prop))
           || row['最新涨跌幅'] < 0 && (['最新涨跌幅', '最新价', '贡献'].includes(item.prop))
+          || ['percentLabel', 'profit'].includes(item.prop) && row['profit'] < 0
         ,
       };
     },
@@ -816,22 +846,41 @@ export default {
         return !item.label.match(/(所属指数类|所属概念|a股市值|每股净资产bps|最新dde大单净额|总股本|market_code|code)/);
       });
       this.partColumn = partColumn;
-      this.partList = list;
+      this.allPartList = list;
+      this.filter();
       // partStatisticList: [],
       //   partStatisticColumn: [],
       let group = _.groupBy(this.partList, '所属同花顺行业');
       let partStatisticList = [];
       for(let key in group){
         let item = {
+          id: key,
           label: key,
-          'rate': 0
+          value: 0,
+          percentLabel: 0,
+          'rate': 0,
+          profit: 0
         };
         for(let share of group[key]){
           item.rate += share['沪深300个股权重'];
+          item.profit += share['贡献'];
         }
         item.rate = _.floor(item.rate, 3);
+        item.profit = _.floor(item.profit);
         partStatisticList.push(item);
         item.value = _.floor(this.totalValue * item.rate / 100);
+        item.percentLabel = _.floor(item.profit / item.value * 100, 2);
+        item.children = group[key].map(item=>{
+          return {
+            ...item,
+            id: item['code'],
+            label: item['股票简称'],
+            value: item['持仓'],
+            percentLabel:  item['最新涨跌幅'],
+            'rate': item['沪深300个股权重'],
+            profit:  item['贡献'],
+          };
+        });
       }
       this.partStatisticList = partStatisticList;
       this.partStatisticColumn = [
@@ -847,7 +896,25 @@ export default {
           label: '持仓',
           prop: 'value'
         },
+        {
+          label: '涨跌幅',
+          prop: 'percentLabel'
+        },
+        {
+          label: '盈利',
+          prop: 'profit'
+        },
       ];
+    },
+    filter(){
+      if(!this.keyword){
+        this.partList = this.allPartList;
+        return;
+      }
+
+      this.partList = this.allPartList.filter(item=>{
+        return item['股票简称'].includes(this.keyword);
+      });
     },
     async getPartList(page){
       let result = await axios.post(
@@ -986,6 +1053,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "vue-test";
+@import "vue-test.less";
 </style>
 
