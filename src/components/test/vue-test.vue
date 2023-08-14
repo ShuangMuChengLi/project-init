@@ -246,7 +246,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import * as echarts from 'echarts';
 import { rkMath } from '../../js/tools/rk-math';
-import {getHistoryData, getLibRate, getTargetPriceByLib} from './getTargetLib';
+import {getHistoryData, getLibRate, getTargetPriceByLib, initPb} from './getTargetLib';
 import { getB } from './getB';
 export default {
   name: 'VueTest',
@@ -299,6 +299,7 @@ export default {
     }
   },
   async mounted () {
+    await initPb();
     this.now = moment();
     this.line = await axios.get('http://localhost:3000/data?name=' + moment().format('YYYY-MM-DD')).then((res)=>{
       return res.data.data;
@@ -830,7 +831,10 @@ export default {
           item['最新涨跌幅'] = 0;
           item['贡献'] = 0;
         }
-
+        let type = item['所属同花顺行业'].split('-');
+        item['firstType'] = type[0];
+        item['secondType'] = type[1];
+        item['thirdType'] = type[2];
       });
       this.partProfit = _.floor(_.reduce(list, function(sum, n) {
         if(!n)return sum;
@@ -848,40 +852,50 @@ export default {
       this.partColumn = partColumn;
       this.allPartList = list;
       this.filter();
-      // partStatisticList: [],
-      //   partStatisticColumn: [],
-      let group = _.groupBy(this.partList, '所属同花顺行业');
-      let partStatisticList = [];
-      for(let key in group){
-        let item = {
-          id: key,
-          label: key,
-          value: 0,
-          percentLabel: 0,
-          'rate': 0,
-          profit: 0
-        };
-        for(let share of group[key]){
-          item.rate += share['沪深300个股权重'];
-          item.profit += share['贡献'];
-        }
-        item.rate = _.floor(item.rate, 3);
-        item.profit = _.floor(item.profit);
-        partStatisticList.push(item);
-        item.value = _.floor(this.totalValue * item.rate / 100);
-        item.percentLabel = _.floor(item.profit / item.value * 100, 2);
-        item.children = group[key].map(item=>{
-          return {
-            ...item,
-            id: item['code'],
-            label: item['股票简称'],
-            value: item['持仓'],
-            percentLabel:  item['最新涨跌幅'],
-            'rate': item['沪深300个股权重'],
-            profit:  item['贡献'],
+      let groupByType = (typeKey, list)=>{
+        let partStatisticList = [];
+        let group = _.groupBy(list, typeKey);
+        for(let key in group){
+          let item = {
+            id: typeKey + key,
+            label: key,
+            value: 0,
+            percentLabel: 0,
+            'rate': 0,
+            profit: 0
           };
-        });
-      }
+          for(let share of group[key]){
+            item.rate += share['沪深300个股权重'];
+            item.profit += share['贡献'];
+          }
+          item.rate = _.floor(item.rate, 3);
+          item.profit = _.floor(item.profit);
+          item.value = _.floor(this.totalValue * item.rate / 100);
+          item.percentLabel = _.floor(item.profit / item.value * 100, 2);
+          let typeMap = {
+            'firstType': 'secondType',
+            'secondType': 'thirdType'
+          };
+          if(typeMap[typeKey]){
+            item.children = groupByType(typeMap[typeKey], group[key]);
+          }else{
+            item.children = group[key].map(item=>{
+              return {
+                ...item,
+                id: item['code'],
+                label: item['股票简称'],
+                value: item['持仓'],
+                percentLabel:  item['最新涨跌幅'],
+                'rate': item['沪深300个股权重'],
+                profit:  item['贡献'],
+              };
+            });
+          }
+          partStatisticList.push(item);
+        }
+        return partStatisticList;
+      };
+      let partStatisticList = groupByType('firstType', this.partList);
       this.partStatisticList = partStatisticList;
       this.partStatisticColumn = [
         {

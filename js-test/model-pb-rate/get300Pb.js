@@ -4,10 +4,10 @@ let path = require('path');
 let moment = require('moment');
 let date = moment().valueOf();
 axios.get(
-  `https://legulegu.com/api/stockdata/index-basic-pb?indexCode=000300.SH&token=2a5ba0918d8bdf23af464ee6a2e8a45e`,
+  'https://legulegu.com/api/stockdata/index-basic-pb?indexCode=000300.SH&token=9262e7543b6a10c7bdd7aaae950d6f43',
   {
     headers:{
-      'Cookie': `8A3165B4=e3ef9760-f7ee-45b9-93f4-a46b06271951;`.replace(/\s/g, ''),
+      'Cookie': '7FEBD069=8bc04b81-aa24-4084-ac12-bf77f4be08e0;'.replace(/\s/g, ''),
       // 'Host': 'legulegu.com',
       // 'Referer': 'https://legulegu.com/stockdata/hs300-pb',
 
@@ -17,4 +17,6 @@ axios.get(
   console.log(res);
   // console.log(res.data);
   fs.writeFileSync(path.resolve(__dirname, './pb.json'), JSON.stringify(res.data.data, '', 2));
+  fs.writeFileSync(path.resolve(__dirname, '../../public/pb.json'), JSON.stringify(res.data.data, '', 2));
+  fs.writeFileSync(path.resolve(__dirname, '../../dist/pb.json'), JSON.stringify(res.data.data, '', 2));
 }).catch(console.error);

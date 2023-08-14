@@ -7,6 +7,18 @@
       "type": "宽基ETF",
       "history": [
         {
+          "count": 15000,
+          "value": 1.864
+        },
+        {
+          "count": 16300,
+          "value": 1.9
+        },
+        {
+          "count": 17000,
+          "value": 1.934
+        },
+        {
           "count": -20000,
           "value": 1.967
         },
@@ -50,5 +62,5 @@
       "target": 2.064
     }
   ],
-  "money": 162278
+  "money": 70470
 }

@@ -1,21 +1,24 @@
 import {getB} from './getB';
-
-let _ = require('lodash');
-let moment = require('moment');
-let data = require('../../../js-test/model-pb-rate/pb.json');
-
-let index = _.findIndex(data, {date: moment('2013-07-04 00:00:00').valueOf()});
-let list = data.slice(index);
-// let list = data;
-let sortedList = _.sortBy(list, 'addPb');
-let groupData = _.groupBy(list, 'addPb');
-// 3912  1.899   3907
-
+import _ from 'lodash';
+import axios from 'axios';
+import moment from 'moment';
 let b = getB();
-function getNowDate(date){
-  return moment(date || null).format('YYYY-MM-DD');
+let sortedList;
+let groupData;
+export async function initPb(){
+  let data = await axios.get('./pb.json').then((res)=>{
+    return res.data;
+  }).catch(err=>false) || [];
+  console.log(data);
+  if(!data)return;
+
+  let index = _.findIndex(data, {date: moment('2013-07-04 00:00:00').valueOf()});
+  let list = data.slice(index);
+  sortedList = _.sortBy(list, 'addPb');
+  groupData = _.groupBy(list, 'addPb');
 }
-// getLibRate(pb, b, floorPrice, currentData.current)
+
+
 export function getLibRate(pb, current){
 
   let positionIndex = -1;
