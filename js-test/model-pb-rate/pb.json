@@ -53518,5 +53518,29 @@
     "addPbQuantile": 0.15964,
     "middlePb": 2.64,
     "middlePbQuantile": 0.587
+  },
+  {
+    "id": 0,
+    "industryCode": null,
+    "date": 1691683200000,
+    "close": 3884.25,
+    "pb": 3.59,
+    "pbQuantile": 0.51648,
+    "addPb": 1.36,
+    "addPbQuantile": 0.11634,
+    "middlePb": 2.57,
+    "middlePbQuantile": 0.5445
+  },
+  {
+    "id": 0,
+    "industryCode": null,
+    "date": 1691942400000,
+    "close": 3855.91,
+    "pb": 3.57,
+    "pbQuantile": 0.50762,
+    "addPb": 1.35,
+    "addPbQuantile": 0.10489,
+    "middlePb": 2.58,
+    "middlePbQuantile": 0.5446
   }
 ]
