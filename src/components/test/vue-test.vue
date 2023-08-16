@@ -61,7 +61,14 @@
             <template
               slot-scope="scope"
             >
+              <a
+                v-if="item.label === '名称' && scope.row.code"
+                :class="getRowItemClass(scope.row, item)"
+                :href="getLinkMain(scope.row)"
+                target="_blank"
+              >{{ getLabel(scope.row, item) }}</a>
               <span
+                v-else
                 :class="getRowItemClass(scope.row, item)"
               >{{ getLabel(scope.row, item) }}</span>
             </template>
@@ -209,7 +216,16 @@
             <template
               slot-scope="scope"
             >
-              <span :class="getRowItemClass(scope.row, item)">{{ getLabel(scope.row, item) }}</span>
+              <a
+                v-if="item.label === '股票简称' && scope.row.code"
+                :class="getRowItemClass(scope.row, item)"
+                :href="getLink(scope.row)"
+                target="_blank"
+              >{{ getLabel(scope.row, item) }}</a>
+              <span
+                v-else
+                :class="getRowItemClass(scope.row, item)"
+              >{{ getLabel(scope.row, item) }}</span>
             </template>
           </el-table-column>
         </el-table>
@@ -231,7 +247,16 @@
             <template
               slot-scope="scope"
             >
-              <span :class="getRowItemClass(scope.row, item)">{{ getLabel(scope.row, item) }}</span>
+              <a
+                v-if="item.label === '所属同花顺行业' && scope.row.code"
+                :class="getRowItemClass(scope.row, item)"
+                :href="getLink(scope.row)"
+                target="_blank"
+              >{{ getLabel(scope.row, item) }}</a>
+              <span
+                v-else
+                :class="getRowItemClass(scope.row, item)"
+              >{{ getLabel(scope.row, item) }}</span>
             </template>
           </el-table-column>
         </el-table>
@@ -1061,7 +1086,18 @@ export default {
       if(this.partVisible){
         this.getAllPartList();
       }
-    }
+    },
+    getLink(item){
+      if(!item['股票代码'])return;
+
+      let part = item['股票代码'].split('.');
+      return `https://xueqiu.com/S/${part[1]}${part[0]}`;
+    },
+    getLinkMain(item){
+      if(!item['prevCode'])return;
+
+      return `https://xueqiu.com/S/${item.prevCode}${item.code}`;
+    },
   }
 };
 </script>
