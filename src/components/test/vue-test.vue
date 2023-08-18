@@ -259,7 +259,7 @@
                 target="_blank"
               >{{ getLabel(scope.row, item) }}</a>
               <a
-                v-else-if="item.label === 'info' && scope.row.info"
+                v-else-if="item.label === '笔记' && scope.row.info"
                 :href="scope.row.info"
                 target="_blank"
               >笔记</a>
@@ -845,7 +845,7 @@ export default {
       this.HS300 = result;
     },
     getLabel(row, item){
-      return `${row[item.prop]}`;
+      return `${row[item.prop] || ''}`;
     },
     getCurrent(row, item){
       return row.current === row[item.prop];
@@ -965,6 +965,10 @@ export default {
         {
           label: '盈利',
           prop: 'profit'
+        },
+        {
+          label: '笔记',
+          prop: 'info'
         },
       ];
     },
