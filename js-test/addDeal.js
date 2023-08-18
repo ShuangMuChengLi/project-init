@@ -2,8 +2,8 @@ let fs = require('fs');
 let path = require('path');
 let _ = require('lodash');
 let data = require('../public/base.json');
-let count = 4000;
-let value = 1.848;
+let count = 4800;
+let value = 1.844;
 let code = '510310';
 _.find(data.list, {code}).history.unshift({
   count,
