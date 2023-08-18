@@ -872,7 +872,7 @@ export default {
           prop: item
         };
       }).filter(item=>{
-        return !item.label.match(/(所属指数类|所属概念|a股市值|每股净资产bps|最新dde大单净额|总股本|market_code|code)/);
+        return !item.label.match(/(所属指数类|所属概念|a股市值|每股净资产bps|最新dde大单净额|总股本|market_code|code|预测|利率|收益)/);
       });
       this.partColumn = partColumn;
       this.allPartList = list;
@@ -959,103 +959,26 @@ export default {
       let result = await axios.post(
         '/gateway/urp/v7/landing/getDataList',
         new URLSearchParams({
-          'query': '沪深300权重',
+          'query': '沪深300权重市净率市盈率所属同花顺行业',
           'urp_sort_way': 'desc',
           'urp_sort_index': '沪深300个股权重',
           'page': page,
           'perpage': 100,
           'addheaderindexes': '',
-          'condition': JSON.stringify([{
-            'chunkedResult': '沪深300指数成分股权重、行业、市净率、市值',
-            'opName': 'and',
-            'opProperty': '',
-            'sonSize': 8,
-            'relatedSize': 0
-          }, {
-            'indexName': '所属指数类',
-            'indexProperties': ['包含沪深300'],
-            'valueType': '_所属指数类',
-            'domain': 'abs_股票领域',
-            'uiText': '所属指数类是沪深300指数',
-            'sonSize': 0,
-            'queryText': '所属指数类是沪深300指数',
-            'relatedSize': 0,
-            'source': 'new_parser',
-            'tag': '所属指数类',
-            'type': 'index',
-            'indexPropertiesMap': {'包含': '沪深300'}
-          }, {'opName': 'and', 'opProperty': '', 'sonSize': 6, 'relatedSize': 0}, {
-            'indexName': '沪深300个股权重',
-            'indexProperties': [],
-            'source': 'new_parser',
-            'type': 'index',
-            'indexPropertiesMap': {},
-            'reportType': 'null',
-            'valueType': '_浮点型数值',
-            'domain': 'abs_股票领域',
-            'uiText': '沪深300个股权重',
-            'sonSize': 0,
-            'queryText': '沪深300个股权重',
-            'relatedSize': 0,
-            'tag': '沪深300个股权重'
-          }, {'opName': 'and', 'opProperty': '', 'sonSize': 4, 'relatedSize': 0}, {
-            'indexName': '所属同花顺行业',
-            'indexProperties': [],
-            'source': 'new_parser',
-            'type': 'index',
-            'indexPropertiesMap': {},
-            'reportType': 'null',
-            'valueType': '_所属同花顺行业',
-            'domain': 'abs_股票领域',
-            'uiText': '所属同花顺行业',
-            'sonSize': 0,
-            'queryText': '所属同花顺行业',
-            'relatedSize': 0,
-            'tag': '所属同花顺行业'
-          }, {'opName': 'and', 'opProperty': '', 'sonSize': 2, 'relatedSize': 0}, {
-            'indexName': '市净率(pb)',
-            'indexProperties': ['nodate 1', '交易日期 20230721'],
-            'source': 'new_parser',
-            'type': 'index',
-            'indexPropertiesMap': {'交易日期': '20230721', 'nodate': '1'},
-            'reportType': 'TRADE_DAILY',
-            'dateType': '交易日期',
-            'valueType': '_浮点型数值(倍)',
-            'domain': 'abs_股票领域',
-            'uiText': '市净率(pb)',
-            'sonSize': 0,
-            'queryText': '市净率(pb)',
-            'relatedSize': 0,
-            'tag': '市净率(pb)'
-          }, {
-            'indexName': '总市值',
-            'indexProperties': ['nodate 1', '交易日期 20230721'],
-            'source': 'new_parser',
-            'type': 'index',
-            'indexPropertiesMap': {'交易日期': '20230721', 'nodate': '1'},
-            'reportType': 'TRADE_DAILY',
-            'dateType': '交易日期',
-            'valueType': '_浮点型数值(元|港元|美元|英镑)',
-            'domain': 'abs_股票领域',
-            'uiText': '总市值',
-            'sonSize': 0,
-            'queryText': '总市值',
-            'relatedSize': 0,
-            'tag': '总市值'
-          }]),
+          'condition': JSON.stringify([{'chunkedResult':'沪深300权重同花顺分类市净率_&_市盈率_&_所属同花顺行业', 'opName':'and', 'opProperty':'', 'sonSize':6, 'relatedSize':0}, {'indexName':'沪深300个股权重', 'indexProperties':[], 'source':'new_parser', 'type':'index', 'indexPropertiesMap':{}, 'reportType':'null', 'valueType':'_浮点型数值', 'domain':'abs_股票领域', 'uiText':'沪深300个股权重', 'sonSize':0, 'queryText':'沪深300个股权重', 'relatedSize':0, 'tag':'沪深300个股权重'}, {'opName':'and', 'opProperty':'', 'sonSize':4, 'relatedSize':0}, {'indexName':'市净率(pb)', 'indexProperties':['nodate 1', '交易日期 20230817'], 'source':'new_parser', 'type':'index', 'indexPropertiesMap':{'交易日期':'20230817', 'nodate':'1'}, 'reportType':'TRADE_DAILY', 'dateType':'交易日期', 'valueType':'_浮点型数值(倍)', 'domain':'abs_股票领域', 'uiText':'市净率(pb)', 'sonSize':0, 'queryText':'市净率(pb)', 'relatedSize':0, 'tag':'市净率(pb)'}, {'opName':'and', 'opProperty':'', 'sonSize':2, 'relatedSize':0}, {'indexName':'市盈率(pe)', 'indexProperties':['nodate 1', '交易日期 20230817'], 'source':'new_parser', 'type':'index', 'indexPropertiesMap':{'交易日期':'20230817', 'nodate':'1'}, 'reportType':'TRADE_DAILY', 'dateType':'交易日期', 'valueType':'_浮点型数值(倍)', 'domain':'abs_股票领域', 'uiText':'市盈率(pe)', 'sonSize':0, 'queryText':'市盈率(pe)', 'relatedSize':0, 'tag':'市盈率(pe)'}, {'indexName':'所属同花顺行业', 'indexProperties':[], 'source':'new_parser', 'type':'index', 'indexPropertiesMap':{}, 'reportType':'null', 'valueType':'_所属同花顺行业', 'domain':'abs_股票领域', 'uiText':'所属同花顺行业', 'sonSize':0, 'queryText':'所属同花顺行业', 'relatedSize':0, 'tag':'所属同花顺行业'}]),
           'codelist': '',
           'indexnamelimit': '',
-          'logid': '4d12c478020d33506077331e34324b66',
+          'logid': '6a9da8bb544050844a643ed3e9084342',
           'ret': 'json_all',
-          'sessionid': '4d12c478020d33506077331e34324b66',
+          'sessionid': '6a9da8bb544050844a643ed3e9084342',
           'source': 'Ths_iwencai_Xuangu',
-          'date_range[0]': '20230719',
+          'date_range[0]': '20230817',
           'iwc_token': '0ac9665416897368747795088',
           'urp_use_sort': '1',
           'user_id': 'Ths_iwencai_Xuangu_k5txqqznnm3r6fa394e2kjdxjardj338',
           'uuids[0]': '24087',
           'query_type': 'stock',
-          'comp_id': '6734520',
+          'comp_id': '6836372',
           'business_cat': 'soniu',
           'uuid': '24087'
         }).toString(),
