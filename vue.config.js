@@ -90,6 +90,10 @@ module.exports = {
         target: 'http://www.iwencai.com',
         changeOrigin: true
       },
+      '/selfselect': {
+        target: 'https://finance.pae.baidu.com',
+        changeOrigin: true
+      },
     }
   }
 };

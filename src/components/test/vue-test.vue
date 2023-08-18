@@ -222,6 +222,11 @@
                 :href="getLink(scope.row)"
                 target="_blank"
               >{{ getLabel(scope.row, item) }}</a>
+              <a
+                v-else-if="item.label === 'info' && scope.row.info"
+                :href="scope.row.info"
+                target="_blank"
+              >笔记</a>
               <span
                 v-else
                 :class="getRowItemClass(scope.row, item)"
@@ -253,6 +258,11 @@
                 :href="getLink(scope.row)"
                 target="_blank"
               >{{ getLabel(scope.row, item) }}</a>
+              <a
+                v-else-if="item.label === 'info' && scope.row.info"
+                :href="scope.row.info"
+                target="_blank"
+              >笔记</a>
               <span
                 v-else
                 :class="getRowItemClass(scope.row, item)"
@@ -303,6 +313,7 @@ export default {
       markPb: null,
       partList: [],
       allPartList: [],
+      HS300: [],
       partColumn: [
 
       ],
@@ -330,6 +341,7 @@ export default {
       return res.data.data;
     }).catch(err=>false) || [];
     await this.getBaseData();
+    await this.getPartBaseData();
     await this.init();
     this.setTimer();
   },
@@ -822,6 +834,16 @@ export default {
       this.levelList = result.list;
       this.money = result.money;
     },
+    async getPartBaseData(){
+      let result = await axios.get('./HS300.json')
+        .then((res) => {
+          return (res.data);
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+      this.HS300 = result;
+    },
     getLabel(row, item){
       return `${row[item.prop]}`;
     },
@@ -860,6 +882,7 @@ export default {
         item['firstType'] = type[0];
         item['secondType'] = type[1];
         item['thirdType'] = type[2];
+        item['info'] = _.find(this.HS300, {code: item['股票代码']})?.info || '';
       });
       this.partProfit = _.floor(_.reduce(list, function(sum, n) {
         if(!n)return sum;
