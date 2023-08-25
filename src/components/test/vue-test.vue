@@ -845,7 +845,11 @@ export default {
       this.HS300 = result;
     },
     getLabel(row, item){
-      return `${row[item.prop] || ''}`;
+      if(!row[item.prop] && row[item.prop] !== 0){
+        return '';
+      }
+
+      return row[item.prop];
     },
     getCurrent(row, item){
       return row.current === row[item.prop];

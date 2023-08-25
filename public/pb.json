@@ -53542,5 +53542,101 @@
     "addPbQuantile": 0.10489,
     "middlePb": 2.58,
     "middlePbQuantile": 0.5446
+  },
+  {
+    "id": 0,
+    "industryCode": null,
+    "date": 1692028800000,
+    "close": 3846.54,
+    "pb": 3.53,
+    "pbQuantile": 0.49249,
+    "addPb": 1.35,
+    "addPbQuantile": 0.10486,
+    "middlePb": 2.56,
+    "middlePbQuantile": 0.52588
+  },
+  {
+    "id": 0,
+    "industryCode": null,
+    "date": 1692115200000,
+    "close": 3818.33,
+    "pb": 3.49,
+    "pbQuantile": 0.46819,
+    "addPb": 1.33,
+    "addPbQuantile": 0.09185,
+    "middlePb": 2.51,
+    "middlePbQuantile": 0.49821
+  },
+  {
+    "id": 0,
+    "industryCode": null,
+    "date": 1692201600000,
+    "close": 3831.1,
+    "pb": 3.48,
+    "pbQuantile": 0.46809,
+    "addPb": 1.34,
+    "addPbQuantile": 0.09205,
+    "middlePb": 2.53,
+    "middlePbQuantile": 0.51153
+  },
+  {
+    "id": 0,
+    "industryCode": null,
+    "date": 1692288000000,
+    "close": 3784,
+    "pb": 3.43,
+    "pbQuantile": 0.43506,
+    "addPb": 1.32,
+    "addPbQuantile": 0.07792,
+    "middlePb": 2.5,
+    "middlePbQuantile": 0.48657
+  },
+  {
+    "id": 0,
+    "industryCode": null,
+    "date": 1692547200000,
+    "close": 3729.56,
+    "pb": 3.37,
+    "pbQuantile": 0.41549,
+    "addPb": 1.31,
+    "addPbQuantile": 0.05753,
+    "middlePb": 2.49,
+    "middlePbQuantile": 0.47952
+  },
+  {
+    "id": 0,
+    "industryCode": null,
+    "date": 1692633600000,
+    "close": 3758.23,
+    "pb": 3.38,
+    "pbQuantile": 0.41853,
+    "addPb": 1.32,
+    "addPbQuantile": 0.07833,
+    "middlePb": 2.47,
+    "middlePbQuantile": 0.46934
+  },
+  {
+    "id": 0,
+    "industryCode": null,
+    "date": 1692720000000,
+    "close": 3696.63,
+    "pb": 3.3,
+    "pbQuantile": 0.39159,
+    "addPb": 1.31,
+    "addPbQuantile": 0.05751,
+    "middlePb": 2.43,
+    "middlePbQuantile": 0.452
+  },
+  {
+    "id": 0,
+    "industryCode": null,
+    "date": 1692806400000,
+    "close": 3723.43,
+    "pb": 3.34,
+    "pbQuantile": 0.40626,
+    "addPb": 1.31,
+    "addPbQuantile": 0.05749,
+    "middlePb": 2.44,
+    "middlePbQuantile": 0.45213
   }
 ]
