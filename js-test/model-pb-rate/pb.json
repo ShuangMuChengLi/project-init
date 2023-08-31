@@ -53638,5 +53638,53 @@
     "addPbQuantile": 0.05749,
     "middlePb": 2.44,
     "middlePbQuantile": 0.45213
+  },
+  {
+    "id": 0,
+    "industryCode": null,
+    "date": 1692892800000,
+    "close": 3709.15,
+    "pb": 3.28,
+    "pbQuantile": 0.38045,
+    "addPb": 1.3,
+    "addPbQuantile": 0.05748,
+    "middlePb": 2.43,
+    "middlePbQuantile": 0.45202
+  },
+  {
+    "id": 0,
+    "industryCode": null,
+    "date": 1693152000000,
+    "close": 3752.62,
+    "pb": 3.29,
+    "pbQuantile": 0.38752,
+    "addPb": 1.31,
+    "addPbQuantile": 0.06708,
+    "middlePb": 2.41,
+    "middlePbQuantile": 0.43403
+  },
+  {
+    "id": 0,
+    "industryCode": null,
+    "date": 1693238400000,
+    "close": 3790.11,
+    "pb": 3.34,
+    "pbQuantile": 0.40353,
+    "addPb": 1.32,
+    "addPbQuantile": 0.06729,
+    "middlePb": 2.41,
+    "middlePbQuantile": 0.43394
+  },
+  {
+    "id": 0,
+    "industryCode": null,
+    "date": 1693324800000,
+    "close": 3788.51,
+    "pb": 3.34,
+    "pbQuantile": 0.40344,
+    "addPb": 1.31,
+    "addPbQuantile": 0.05767,
+    "middlePb": 2.4,
+    "middlePbQuantile": 0.42602
   }
 ]
