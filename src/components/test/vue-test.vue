@@ -606,6 +606,18 @@ export default {
           label: '持仓',
           prop: 'total',
         });
+        this.column.push({
+          label: '公积数量',
+          prop: 'fundCount',
+        });
+        this.column.push({
+          label: '公积成本',
+          prop: 'fundCost',
+        });
+        this.column.push({
+          label: '公积价值',
+          prop: 'fundValue',
+        });
         // this.column.push({
         //   label: '仓位',
         //   prop: 'accountPercentage',
@@ -619,6 +631,17 @@ export default {
         levelItem.count = _.reduce(levelItem.history, function(sum, n) {
           return sum + n.count;
         }, 0);
+        levelItem.fundCount = _.reduce(levelItem.fund, function(sum, n) {
+          return sum + n.count;
+        }, 0);
+        if(levelItem.fundCount){
+          levelItem.fundCost = _.floor(_.reduce(levelItem.fund, function(sum, n) {
+            return sum + n.count * n.value;
+          }, 0) / levelItem.fundCount, 3);
+        }else{
+          levelItem.fundCost = 0;
+        }
+        
       }
       this.totalValue = _.reduce(this.levelList, (sum, n)=> {
         let currentData = _.find(data, {symbol: n.code});
@@ -661,6 +684,7 @@ export default {
         levelItem['profitLabel'] = _.floor(currentData.chg * levelItem.count, 2);
         levelItem['lastCloseValue'] = currentData.last_close * levelItem.count;
         levelItem['total'] = _.floor(currentData.current * levelItem.count);
+        levelItem['fundValue'] = _.floor(currentData.current * levelItem.fundCount);
         levelItem['accountPercentage'] = _.floor(levelItem['total'] / totalLib * 100, 2);
         levelItem['space'] = _.floor( (levelItem['target'] - levelItem['current']) / levelItem['current'] * 100, 2);
         if(typeSet[levelItem.type]){
@@ -731,7 +755,7 @@ export default {
       if(this.isShowChart){
         this.initChart(this.line);
       }
-      this.historyInfo = getHistoryData(levelItem.count, this.money, currentData.current);
+      this.historyInfo = getHistoryData(levelItem.count, this.money, levelItem.currentRatePrice);
       /**
        * 模拟未来收益
        */
