@@ -4,10 +4,10 @@ let path = require('path');
 let moment = require('moment');
 let date = moment().valueOf();
 axios.get(
-  'https://legulegu.com/api/stockdata/index-basic-pb?indexCode=000300.SH&token=6ba198543e238ec74c7d58af60253616',
+  'https://legulegu.com/api/stockdata/index-basic-pb?indexCode=000300.SH&token=75189167673af40ca0def82095750863',
   {
     headers:{
-      'Cookie': '400CC9=6a9ca7ad-baa7-480a-87ee-e4c5aa053e7b'.replace(/\s/g, ''),
+      'Cookie': 'BAEEB0=6d7f1139-4a19-4b44-9d7d-8eeb4e23d08e'.replace(/\s/g, ''),
       // 'Host': 'legulegu.com',
       // 'Referer': 'https://legulegu.com/stockdata/hs300-pb',
 

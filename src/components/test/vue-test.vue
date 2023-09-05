@@ -337,9 +337,9 @@ export default {
   async mounted () {
     await initPb();
     this.now = moment();
-    this.line = await axios.get('http://localhost:3000/data?name=' + moment().format('YYYY-MM-DD')).then((res)=>{
-      return res.data.data;
-    }).catch(err=>false) || [];
+    // this.line = await axios.get('http://localhost:3000/data?name=' + moment().format('YYYY-MM-DD')).then((res)=>{
+    //   return res.data.data;
+    // }).catch(err=>false) || [];
     await this.getBaseData();
     await this.getPartBaseData();
     await this.init();
@@ -391,9 +391,9 @@ export default {
     showChart(){
       this.isShowChart = !this.isShowChart;
       if(this.isShowChart){
-        this.$nextTick(()=>{
-          this.initChart(this.line);
-        });
+        // this.$nextTick(()=>{
+        //   this.initChart(this.line);
+        // });
       }
     },
     initChart(data){
@@ -606,18 +606,18 @@ export default {
           label: '持仓',
           prop: 'total',
         });
-        this.column.push({
-          label: '公积数量',
-          prop: 'fundCount',
-        });
-        this.column.push({
-          label: '公积成本',
-          prop: 'fundCost',
-        });
-        this.column.push({
-          label: '公积价值',
-          prop: 'fundValue',
-        });
+        // this.column.push({
+        //   label: '公积数量',
+        //   prop: 'fundCount',
+        // });
+        // this.column.push({
+        //   label: '公积成本',
+        //   prop: 'fundCost',
+        // });
+        // this.column.push({
+        //   label: '公积价值',
+        //   prop: 'fundValue',
+        // });
         // this.column.push({
         //   label: '仓位',
         //   prop: 'accountPercentage',
@@ -742,18 +742,18 @@ export default {
 
       this.percentage = _.ceil(this.profit / lastCloseValue * 100, 2) + '%';
       if(this.isOpen){
-        let baseProfit = _.floor((_.find(data, {symbol: '510310'})?.percent || 0) / 100 * lastCloseValue);
-        this.line.push({
-          profit: this.profit,
-          baseProfit: baseProfit,
-          time: moment().format('HH:mm:ss')
-        });
-        axios.post('http://localhost:3000/data', {name: moment().format('YYYY-MM-DD'), data: this.line});
+        // let baseProfit = _.floor((_.find(data, {symbol: '510310'})?.percent || 0) / 100 * lastCloseValue);
+        // this.line.push({
+        //   profit: this.profit,
+        //   baseProfit: baseProfit,
+        //   time: moment().format('HH:mm:ss')
+        // });
+        // axios.post('http://localhost:3000/data', {name: moment().format('YYYY-MM-DD'), data: this.line});
       }
 
       document.title = this.profit;
       if(this.isShowChart){
-        this.initChart(this.line);
+        // this.initChart(this.line);
       }
       this.historyInfo = getHistoryData(levelItem.count, this.money, levelItem.currentRatePrice);
       /**

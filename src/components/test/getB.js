@@ -6,5 +6,6 @@ export function getB(){
   // console.log(b);
   // return b;
   // return 1.873 / 1.34;
-  return 1.843 / 1.31;
+  // return 1.843 / 1.31;
+  return 1.874 / 1.32;
 }
