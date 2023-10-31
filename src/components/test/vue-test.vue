@@ -131,12 +131,12 @@
           </el-table-column>
         </el-table>
       </div>
-
       <div
         id="historyChart"
         class="chart"
         @click="futureProfitListVisible = !futureProfitListVisible"
       />
+      <p class="statistic-row">近十年更低估天数{{ positionIndex }}，总数{{ historyCount }}</p>
       <el-table
         v-if="futureProfitListVisible"
         :data="futureProfitList"
@@ -323,7 +323,9 @@ export default {
       futureProfitListVisible: false,
       futureProfitList: [],
       futureProfitColumn: [],
-      partProfit: 0
+      partProfit: 0,
+      positionIndex: 0,
+      historyCount: 0
     };
   },
   computed:{
@@ -601,23 +603,26 @@ export default {
           label: '目标盈利',
           prop: 'marginProfit',
         });
-
+        this.column.push({
+          label: '持仓数量',
+          prop: 'count',
+        });
         this.column.push({
           label: '持仓',
           prop: 'total',
         });
-        // this.column.push({
-        //   label: '公积数量',
-        //   prop: 'fundCount',
-        // });
-        // this.column.push({
-        //   label: '公积成本',
-        //   prop: 'fundCost',
-        // });
-        // this.column.push({
-        //   label: '公积价值',
-        //   prop: 'fundValue',
-        // });
+        this.column.push({
+          label: '公积数量',
+          prop: 'fundCount',
+        });
+        this.column.push({
+          label: '公积成本',
+          prop: 'fundCost',
+        });
+        this.column.push({
+          label: '公积价值',
+          prop: 'fundValue',
+        });
         // this.column.push({
         //   label: '仓位',
         //   prop: 'accountPercentage',
@@ -724,9 +729,10 @@ export default {
       let b = getB();
       let pb = currentData.current / b;
       this.markPb = _.floor(pb, 2);
-      let targetRateData = getLibRate(pb, currentData.current);
-      let targetRate = targetRateData.rate;
-      let currentLib = levelItem.count * currentData.current;
+      let {rate: targetRate, positionIndex, total: historyCount} = getLibRate(pb, currentData.current);
+      this.positionIndex = positionIndex;
+      this.historyCount = historyCount;
+      let currentLib = _.floor(levelItem.count * currentData.current);
       let currentRate = currentLib / totalLib;
       // let marginCount = getHundred((targetRate - currentRate) * totalLib / currentData.current);
       let marginCount = getHundred((targetRate * totalLib - currentLib) / currentData.current);
@@ -756,6 +762,7 @@ export default {
         // this.initChart(this.line);
       }
       this.historyInfo = getHistoryData(levelItem.count, this.money, levelItem.currentRatePrice);
+      console.log(this.historyInfo);
       /**
        * 模拟未来收益
        */

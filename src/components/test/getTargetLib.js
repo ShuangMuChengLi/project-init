@@ -36,6 +36,8 @@ export function getLibRate(pb, current){
   let rate = 1 - positionIndex / sortedList.length;
   return {
     rate: rate,
+    positionIndex: _.floor(positionIndex),
+    total: sortedList.length
   };
 }
 

@@ -7,5 +7,5 @@ export function getB(){
   // return b;
   // return 1.873 / 1.34;
   // return 1.843 / 1.31;
-  return 1.874 / 1.32;
+  return 1.7354 / 1.23;
 }
