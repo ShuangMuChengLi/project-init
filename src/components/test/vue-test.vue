@@ -184,7 +184,7 @@
               >笔记</a>
               <span
                 v-else
-                :class="getRowItemClass(scope.row, item)"
+                :class="getRowItemClass(scope.row, item, true)"
               >{{ getLabel(scope.row, item) }}</span>
             </template>
           </el-table-column>
@@ -205,9 +205,10 @@ export default {
   data () {
     return {
       keyword: null, // 关键字
-      money: 0,
-      isHide: true,
-      tableData: [],
+      money: 0, // 现金
+      isHide: true, // 隐藏状态
+      tableData: [], // 持仓表数据
+      // 持仓表字段
       column: [
         {
           'label': '名称',
@@ -262,39 +263,33 @@ export default {
           'prop': 'total'
         }
       ],
-      levelList: [],
-      second: 5,
-      timer: null,
-      next: 0,
-      step: 2,
-      profit: 0,
-      line: [],
-      lineX: [],
-      myChart: null,
-      historyChart: null,
-      historyInfo: [],
-      now: null,
-      percentage: null,
-      totalValue: 0,
-      lastCloseTotalValue: 0,
-      referenceValue: 0,
-      markPb: null,
-      partList: [],
-      allPartList: [],
-      HS300: [],
-      partColumn: [
-
-      ],
-      partVisible: false,
-      partStatisticList: [],
-      partStatisticColumn: [],
-      partProfit: 0,
-      positionIndex: 0,
-      historyCount: 0,
-      B: null
+      levelList: [], // base.json  list
+      second: 5, // 刷新间隔
+      timer: null, // 计时器
+      next: 0, // 下次刷新时长
+      profit: 0, // 当日盈亏
+      historyChart: null, // 市净率分布图
+      historyInfo: [], // 市净率分布图数据
+      now: null, // 当前时间
+      percentage: null, // 当日盈亏幅度
+      totalValue: 0, // 持仓市值
+      lastCloseTotalValue: 0, // 上一日收盘持仓市值
+      markPb: null, // 市净率分布图当前市净率标记
+      partList: [], // 沪深300成分股表格数据
+      allPartList: [], // 沪深300全部成分股数据
+      HS300: [], // 沪深300笔记数据
+      partColumn: [], // 沪深300成分股表格列
+      partVisible: false, // 沪深300成分股表格是否显示
+      partStatisticList: [], // 沪深300成分股分类数据
+      partStatisticColumn: [], // 沪深300成分股分类列
+      partProfit: 0, // 沪深300基准盈亏金额
+      positionIndex: 0, // 更低估日期数量
+      historyCount: 0, // 统计数据
+      B: null // 当前沪深300市净率
     };
   },
   computed:{
+    // 是否开盘
     isOpen(){
       return this.now.day() > 0 && this.now.day() < 6 && this.now.isBetween(
         moment().set('hour', 9).set('minute', 15).set('second', 0),
@@ -303,15 +298,17 @@ export default {
     }
   },
   async mounted () {
-    await initPb();
     this.now = moment();
-    await this.getBaseData();
-    await this.getPartBaseData();
-    await this.init();
-    this.setTimer();
+    await initPb(); // 获取pb列表
+    await this.getBaseData(); // 获取持仓数据
+    await this.getPartBaseData(); // 获取沪深300笔记
+    await this.init(); // 初始化实时行情
+    this.setTimer(); // 设置定时器
   },
   methods: {
-    
+    /**
+     * 初始化实时行情
+     */
     async init () {
       let data = await this.getRealtimeData();
 
@@ -387,6 +384,10 @@ export default {
       }
       return data;
     },
+    /**
+     * 取百
+     * @param {*} n 
+     */
     getHundred(n){
       return _.floor(n / 100) * 100;
     },
@@ -426,27 +427,39 @@ export default {
       this.$set(levelItem, 'dealCount', dealCount);
       this.$set(levelItem, 'dealMoney', dealMoney);
     },
+    /**
+     * 获取单元格涨跌样式
+     * @param {*} row 
+     * @param {*} item 
+     */
     getRowItemClass(row, item){
       return {
         red: row.percent > 0 && (['percentLabel', 'profitLabel', 'current'].includes(item.prop))
-        || row['最新涨跌幅'] > 0 && (['最新涨跌幅', '最新价', '贡献'].includes(item.prop)),
+        || row['最新涨跌幅'] > 0 && (['最新涨跌幅', '最新价', '贡献'].includes(item.prop))
+        || row['profit'] > 0 && (['profit', 'percentLabel'].includes(item.prop))
+        ,
         green:
           row.percent < 0 && (['percentLabel', 'profitLabel', 'current'].includes(item.prop))
           || row['最新涨跌幅'] < 0 && (['最新涨跌幅', '最新价', '贡献'].includes(item.prop))
           || ['percentLabel', 'profit'].includes(item.prop) && row['profit'] < 0
+          || row['profit'] < 0 && (['profit', 'percentLabel'].includes(item.prop))
         ,
       };
     },
+    /**
+     * 展示详情
+     */
     async hide(){
       this.isHide = !this.isHide;
       if(!this.isHide){
         await this.$nextTick();
 
         this.initHistoryChart();
-
-
       }
     },
+    /**
+     * 设置定时器刷新
+     */
     setTimer(){
       clearInterval(this.timer);
       this.next = this.second;
@@ -462,6 +475,9 @@ export default {
         }
       }, 1000);
     },
+    /**
+     * 展示历史市净率图表
+     */
     initHistoryChart(){
       this.historyChart = echarts.init(document.getElementById('historyChart'));
       // this.historyChart = echarts.init(document.getElementById('historyChart'));
@@ -534,6 +550,9 @@ export default {
       // 使用刚指定的配置项和数据显示图表。
       this.historyChart.setOption(option);
     },
+    /**
+     * 获取持仓数据
+     */
     async getBaseData(){
       let result = await axios.get('./base.json')
         .then((res) => {
@@ -546,6 +565,9 @@ export default {
       this.money = result.money;
       this.B = result.B;
     },
+    /**
+     * 获取沪深300笔记
+     */
     async getPartBaseData(){
       let result = await axios.get('./HS300.json')
         .then((res) => {
@@ -556,6 +578,11 @@ export default {
         });
       this.HS300 = result;
     },
+    /**
+     * 展示单元格数据
+     * @param {} row 
+     * @param {*} item 
+     */
     getLabel(row, item){
       if(!row[item.prop] && row[item.prop] !== 0){
         return '';
@@ -563,9 +590,9 @@ export default {
 
       return row[item.prop];
     },
-    getCurrent(row, item){
-      return row.current === row[item.prop];
-    },
+    /**
+     * 展示沪深300详情
+     */
     async getAllPartList(){
       this.partList = [];
       let list = [];
@@ -688,6 +715,9 @@ export default {
         },
       ];
     },
+    /**
+     * 根据关键字筛选沪深300数据
+     */
     filter(){
       if(!this.keyword){
         this.partList = this.allPartList;
@@ -698,6 +728,10 @@ export default {
         return item['股票简称'].includes(this.keyword);
       });
     },
+    /**
+     * 分页请求沪深300数据
+     * @param {*} page 
+     */
     async getPartList(page){
       let result = await axios.post(
         '/gateway/urp/v7/landing/getDataList',
@@ -734,21 +768,36 @@ export default {
       }).catch(err=>false);
       return result;
     },
+    /**
+     * 展示表头
+     * @param {*} label 
+     */
     getTableLabel(label){
       return label.replace(/\[\d+\]$/, '');
     },
+    /**
+     * 展示沪深300详情
+     */
     detail(){
       this.partVisible = !this.partVisible;
       if(this.partVisible){
         this.getAllPartList();
       }
     },
+    /**
+     * 沪深300统计表获取链接
+     * @param {*} item 
+     */
     getLink(item){
       if(!item['股票代码'])return;
 
       let part = item['股票代码'].split('.');
       return `https://xueqiu.com/S/${part[1]}${part[0]}`;
     },
+    /**
+     * 沪深300表获取链接
+     * @param {*} item 
+     */
     getLinkMain(item){
       if(!item['prevCode'])return;
 
