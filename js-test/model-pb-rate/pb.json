@@ -54118,5 +54118,17 @@
     "addPbQuantile": 0.0102,
     "middlePb": 2.16,
     "middlePbQuantile": 0.31596
+  },
+  {
+    "id": 0,
+    "industryCode": null,
+    "date": 1698595200000,
+    "close": 3583.77,
+    "pb": 3.01,
+    "pbQuantile": 0.27355,
+    "addPb": 1.21,
+    "addPbQuantile": 0.00776,
+    "middlePb": 2.16,
+    "middlePbQuantile": 0.31589
   }
 ]
