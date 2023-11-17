@@ -20,13 +20,13 @@ export async function initPb(){
 let libRateMap = [
   { pbRate: 0, minLibRate: 0, maxLibRate: 0 },
   { pbRate: 10, minLibRate: 0, maxLibRate: 0 },
-  { pbRate: 20, minLibRate: 0, maxLibRate: 5 },
-  { pbRate: 30, minLibRate: 0, maxLibRate: 10 },
-  { pbRate: 40, minLibRate: 0, maxLibRate: 20 },
-  { pbRate: 50, minLibRate: 10, maxLibRate: 50 },
-  { pbRate: 60, minLibRate: 20, maxLibRate: 70 },
-  { pbRate: 70, minLibRate: 30, maxLibRate: 80 },
-  { pbRate: 80, minLibRate: 50, maxLibRate: 90 },
+  { pbRate: 20, minLibRate: 0, maxLibRate: 0 },
+  { pbRate: 30, minLibRate: 0, maxLibRate: 0 },
+  { pbRate: 40, minLibRate: 0, maxLibRate: 0 },
+  { pbRate: 50, minLibRate: 0, maxLibRate: 10 },
+  { pbRate: 60, minLibRate: 10, maxLibRate: 20 },
+  { pbRate: 70, minLibRate: 20, maxLibRate: 40 },
+  { pbRate: 80, minLibRate: 40, maxLibRate: 70 },
   { pbRate: 90, minLibRate: 70, maxLibRate: 100 },
   { pbRate: 100, minLibRate: 100, maxLibRate: 100 }
 ];
