@@ -13,6 +13,7 @@ export async function initPb(){
 
   let index = _.findIndex(data, {date: moment('2013-07-04 00:00:00').valueOf()});
   let list = data.slice(index);
+  // let list = data.slice(0);
   sortedList = _.sortBy(list, 'addPb');
   groupData = _.groupBy(list, 'addPb');
 }
@@ -44,10 +45,21 @@ export function getLibRate(pb, current, b){
     }
 
   }
-  positionIndex = positionIndex + groupData[floorPb].length * (current - floorPrice) / (b / 100);
-  let rate = 1 - positionIndex / sortedList.length;
-  let baseRate = _.floor(rate * 10) * 10;
-  let libTargetRate = _.find(libRateMap, {pbRate: baseRate});
+  let rate;
+  let baseRate;
+  let libTargetRate;
+  if(groupData[floorPb]){
+    positionIndex = positionIndex + groupData[floorPb].length * (current - floorPrice) / (b / 100);
+    rate = 1 - positionIndex / sortedList.length;
+    baseRate = _.floor(rate * 10) * 10;
+    libTargetRate = _.find(libRateMap, {pbRate: baseRate});
+  }else{
+    positionIndex = 0;
+    rate = 1;
+    baseRate = _.floor(rate * 10) * 10;
+    libTargetRate = _.find(libRateMap, {pbRate: baseRate});
+  }
+  
   return {
     rate: rate,
     positionIndex: _.floor(positionIndex),

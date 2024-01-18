@@ -484,7 +484,16 @@ export default {
       // 基于准备好的dom，初始化echarts实例
       // 指定图表的配置项和数据
       let markIndex = _.findIndex(this.historyInfo, {'key': this.markPb + ''});
-      let mark = this.historyInfo[markIndex];
+      if(markIndex === -1){
+        markIndex = 0;
+        this.historyInfo.unshift({
+          key: this.markPb,
+          value: 1,
+          rate: 100,
+          price: _.floor(this.B * this.markPb, 3)
+        });
+      }
+      let mark = this.historyInfo[markIndex] || {};
       var option = {
         tooltip: {
           trigger: 'axis',
