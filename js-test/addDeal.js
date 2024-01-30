@@ -2,12 +2,14 @@ let fs = require('fs');
 let path = require('path');
 let _ = require('lodash');
 let data = require('../public/base.json');
-let count = 6000;
-let value = 1.806;
+let count = 10000;
+let value = 1.598;
+let end = true;
 let code = '510310';
 _.find(data.list, {code}).history.unshift({
   count,
-  value
+  value,
+  end
 });
 data.money += _.floor(-count * value);
 let s = JSON.stringify(data, '', 2);

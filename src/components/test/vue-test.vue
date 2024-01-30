@@ -727,7 +727,7 @@ export default {
         axios.post('http://localhost:3000/data', {name: moment().format('YYYY-MM-DD'), data: this.line});
       }
 
-      document.title = this.profit;
+      document.title = this.profit + '——' + currentData.current;
       if(this.isShowChart){
         this.initChart(this.line);
       }
