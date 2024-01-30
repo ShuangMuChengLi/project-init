@@ -7,20 +7,49 @@
       "type": "宽基ETF",
       "history": [
         {
-          "count": 10400,
-          "value": 1.58
-        },
-        {
-          "count": 6100,
-          "value": 1.619
-        },
-        {
-          "count": 6100,
-          "value": 1.621
+          "count": 10000,
+          "value": 1.598,
+          "end": false
         },
         {
           "count": -10000,
-          "value": 1.635
+          "value": 1.623,
+          "end": true
+        },
+        {
+          "count": -16000,
+          "value": 1.596,
+          "end": true
+        },
+        {
+          "count": 10000,
+          "value": 1.562,
+          "end": true
+        },
+        {
+          "count": 6300,
+          "value": 1.571,
+          "end": true
+        },
+        {
+          "count": 10400,
+          "value": 1.58,
+          "end": true
+        },
+        {
+          "count": 6100,
+          "value": 1.619,
+          "end": true
+        },
+        {
+          "count": 6100,
+          "value": 1.621,
+          "end": true
+        },
+        {
+          "count": -10000,
+          "value": 1.635,
+          "end": true
         },
         {
           "count": 7100,
@@ -42,6 +71,6 @@
       "fund": []
     }
   ],
-  "money": 0,
+  "money": 190166,
   "B": 1.392841790562379
 }
