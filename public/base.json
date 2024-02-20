@@ -7,6 +7,26 @@
       "type": "宽基ETF",
       "history": [
         {
+          "count": -10000,
+          "value": 1.6,
+          "end": true
+        },
+        {
+          "count": -10000,
+          "value": 1.575,
+          "end": true
+        },
+        {
+          "count": 10000,
+          "value": 1.535,
+          "end": true
+        },
+        {
+          "count": 10000,
+          "value": 1.556,
+          "end": true
+        },
+        {
           "count": 10000,
           "value": 1.598,
           "end": false
@@ -71,6 +91,6 @@
       "fund": []
     }
   ],
-  "money": 190166,
+  "money": 191006,
   "B": 1.392841790562379
 }

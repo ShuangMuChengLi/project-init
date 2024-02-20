@@ -7,10 +7,10 @@ let date = moment().valueOf();
 // 
 // 
 axios.get(
-  'https://legulegu.com/api/stockdata/index-basic-pb?indexCode=000300.SH&token=4ac9bc53ca651ed2739bff5ea401e0e6',
+  'https://legulegu.com/api/stockdata/index-basic-pb?indexCode=000300.SH&token=d9efc2e772b67d63c39298bb8463e84f',
   {
     headers:{
-      'Cookie': '8FDAAD5=31f1779c-df60-41ea-98d5-b3de96c48506',
+      'Cookie': '45096384=f26acd6c-2708-4b0f-9073-9ee42c215986',
     }
   }
 ).then(res=>{
